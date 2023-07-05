@@ -1,10 +1,15 @@
 package mega.naemeal.user.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.enums.UserRoleEnum;
+import mega.naemeal.user.dto.PasswordcheckRequestDto;
+import mega.naemeal.user.dto.SigninRequestDto;
+import mega.naemeal.user.dto.SignupRequestDto;
 import mega.naemeal.user.entity.User;
+import mega.naemeal.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
@@ -60,6 +65,10 @@ public class UserServiceImpl {
 
   @Override
   public void signout(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
   }
 
   @Override
