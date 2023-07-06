@@ -1,6 +1,8 @@
 package mega.naemeal.post.service;
 
 import lombok.RequiredArgsConstructor;
+import mega.naemeal.comment.entity.Comment;
+import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.enums.Category;
 import mega.naemeal.post.dto.request.PostRequestDto;
 import mega.naemeal.post.dto.response.AllPostResponseDto;
