@@ -2,6 +2,7 @@ package mega.naemeal.post.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mega.naemeal.comment.entity.Comment;
 import mega.naemeal.post.entity.Post;
 
 import java.util.ArrayList;
