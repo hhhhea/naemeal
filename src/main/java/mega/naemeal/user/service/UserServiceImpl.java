@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.enums.UserRoleEnum;
+import mega.naemeal.profile.repository.ProfileRepository;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void unregister(String userId, PasswordcheckRequestDto requestDto) {
+  public void dropout(String userId, PasswordcheckRequestDto requestDto) {
     User user = userRepository.findByUserId(userId).orElseThrow(
         () -> new IllegalArgumentException("등록된 아이디가 없습니다.")
     );
