@@ -8,7 +8,7 @@ import mega.naemeal.user.dto.SignupRequestDto;
 public interface UserService {
   void signup(SignupRequestDto requestDto);
   AuthenticatedUserInfoDto signin(SigninRequestDto requestDto);
-  void unregister(String userId, PasswordcheckRequestDto requestDto);
+  void dropout(String userId, PasswordcheckRequestDto requestDto);
 
   void signout(HttpServletRequest request);
 }
