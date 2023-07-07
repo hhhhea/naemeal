@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.common.TimeStamp;
 import mega.naemeal.enums.UserStatus;
+import mega.naemeal.profile.dto.request.ProfileRequestDto;
 
 @Entity(name = "profile")
 @Getter
