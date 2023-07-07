@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.enums.UserRoleEnum;
+import mega.naemeal.jwt.AuthenticatedUserInfoDto;
 import mega.naemeal.profile.repository.ProfileRepository;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
