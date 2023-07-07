@@ -1,6 +1,7 @@
 package mega.naemeal.user.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import mega.naemeal.jwt.AuthenticatedUserInfoDto;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
