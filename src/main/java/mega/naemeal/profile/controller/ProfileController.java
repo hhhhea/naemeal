@@ -2,6 +2,7 @@ package mega.naemeal.profile.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import mega.naemeal.S3.S3Service;
 import mega.naemeal.common.ApiResponse;
 import mega.naemeal.profile.dto.request.ProfileRequestDto;
 import mega.naemeal.profile.dto.response.ProfileResponseDto;
