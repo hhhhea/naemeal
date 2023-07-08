@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.comment.entity.Comment;
+import mega.naemeal.comment.entity.CommentManage;
+import mega.naemeal.comment.repository.CommentManageRepository;
 import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.cookprogram.repository.CookProgramRepository;
@@ -20,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
   private final CommentRepository commentRepository;
   private final CookProgramRepository cookProgramRepository;
+  private final CommentManageRepository commentManageRepository;
 
   // 댓글 작성
   @Transactional
@@ -85,6 +88,22 @@ public class CommentServiceImpl implements CommentService {
     }
 
     return commentResponseDtoList;
+  }
+
+  // 댓글 신고 서비스
+  @Transactional
+  public CommentCautionResponseDto reportComment(Long postId, Long commentId,
+                                                 String cautionReason) {
+    CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
+            () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+    );
+    Comment comment = commentRepository.findById(commentId).orElseThrow(
+            () -> new IllegalArgumentException("신고할 댓글이 없습니다.")
+    );
+    CommentManage commentManage = new CommentManage(post.getUserId(), commentId, cautionReason);
+    commentManageRepository.save(commentManage);
+    return new CommentCautionResponseDto(commentManage);
+
   }
 
 

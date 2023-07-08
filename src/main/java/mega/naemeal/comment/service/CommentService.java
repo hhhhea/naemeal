@@ -24,5 +24,9 @@ public interface CommentService {
     @Transactional
     List<CommentResponseDto> getCommentList(Long postId);
 
+    // 댓글 신고
+    CommentCautionResponseDto reportComment(Long postId, Long commentId,
+                                            String cautionReason);
+
 }
 
