@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
-    user.changeRole(UserRoleEnum.UNREGISTER);
+    user.changeRole(UserRoleEnum.DROPPED);
     userRepository.save(user);
   }
 
