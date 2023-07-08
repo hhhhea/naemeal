@@ -6,6 +6,7 @@ import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.common.ApiResponse;
 import mega.naemeal.jwt.AuthenticatedUserInfoDto;
+import mega.naemeal.jwt.JwtUtil;
 import mega.naemeal.security.UserDetailsImpl;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
