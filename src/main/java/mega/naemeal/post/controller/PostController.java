@@ -7,6 +7,7 @@ import mega.naemeal.post.dto.request.PostRequestDto;
 import mega.naemeal.post.dto.response.AllPostResponseDto;
 import mega.naemeal.post.dto.response.PostResponseDto;
 import mega.naemeal.post.service.PostServiceImpl;
+import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

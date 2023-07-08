@@ -14,7 +14,6 @@ public class AllCookProgramResponseDto {
     private String postStatus;
     private String image;
 
-    //    private LocalDateTime schedule;
 
     public AllCookProgramResponseDto(CookProgram cookProgram) {
         this.postId = cookProgram.getPostId();
@@ -22,7 +21,7 @@ public class AllCookProgramResponseDto {
         this.area = cookProgram.getArea();
         this.postStatus = String.valueOf(cookProgram.getPostStatus());
         this.image = cookProgram.getImage();
-//        this.schedule = volunteerWorkPost.getSchedule();
+
     }
 
 }

@@ -8,6 +8,7 @@ import mega.naemeal.cookprogram.dto.CookProgramRequestDto;
 import mega.naemeal.cookprogram.dto.CookProgramResponseDto;
 import mega.naemeal.cookprogram.service.CookProgramServiceImpl;
 import mega.naemeal.enums.UserRoleEnum;
+import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
