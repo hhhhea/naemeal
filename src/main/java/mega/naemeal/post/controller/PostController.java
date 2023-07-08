@@ -2,6 +2,7 @@ package mega.naemeal.post.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;;
+import mega.naemeal.S3.S3Service;
 import mega.naemeal.common.ApiResponse;
 import mega.naemeal.post.dto.request.PostRequestDto;
 import mega.naemeal.post.dto.response.AllPostResponseDto;
