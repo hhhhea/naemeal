@@ -6,6 +6,7 @@ import mega.naemeal.common.ApiResponse;
 import mega.naemeal.profile.dto.request.ProfileRequestDto;
 import mega.naemeal.profile.dto.response.ProfileResponseDto;
 import mega.naemeal.profile.service.ProfileService;
+import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
