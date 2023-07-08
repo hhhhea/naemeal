@@ -7,6 +7,7 @@ import mega.naemeal.comment.entity.Comment;
 import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.cookprogram.repository.CookProgramRepository;
+import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

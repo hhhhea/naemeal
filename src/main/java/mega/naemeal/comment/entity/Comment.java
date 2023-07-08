@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mega.naemeal.comment.dto.request.CommentRequestDto;
 import mega.naemeal.common.TimeStamp;
 
 @Getter
