@@ -3,6 +3,7 @@ package mega.naemeal.comment.service;
 import java.util.List;
 
 import mega.naemeal.comment.dto.request.CommentRequestDto;
+import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.transaction.annotation.Transactional;

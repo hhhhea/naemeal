@@ -1,7 +1,9 @@
 package mega.naemeal.comment.controller;
 
 import lombok.RequiredArgsConstructor;
+import mega.naemeal.comment.dto.request.CommentCautionRequestDto;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
+import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.comment.service.CommentServiceImpl;
 import mega.naemeal.common.ApiResponse;
@@ -22,7 +24,7 @@ public class CommentController {
 
   // /posts/1/comments/2
 
-  // #17-1 댓글 작성
+  // 댓글 작성
   @PostMapping
   public ResponseEntity<CommentResponseDto> createComment(@PathVariable Long postId,
                                                           @RequestBody CommentRequestDto requestDto,
@@ -31,7 +33,7 @@ public class CommentController {
     return ResponseEntity.status(HttpStatus.CREATED).body(commentResponseDto);
   }
 
-  // #17-2 댓글 수정
+  // 댓글 수정
   @PatchMapping("/{commentId}")
   public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long postId,
       @RequestBody CommentRequestDto requestDto,
@@ -40,7 +42,7 @@ public class CommentController {
     return ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
   }
 
-  // 17-3 댓글 삭제
+  // 댓글 삭제
   @DeleteMapping("/{commentId}")
   public ResponseEntity deleteComment(@PathVariable Long postId,
                                       @AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -50,13 +52,20 @@ public class CommentController {
     return new ResponseEntity<>("삭제 완료!", HttpStatus.OK);
   }
 
-
-
   // 게시글의 댓글 조회
   @GetMapping
   public ResponseEntity<ApiResponse> getCommentList(@PathVariable Long postId) {
     List<CommentResponseDto> data = commentService.getCommentList(postId);
     ApiResponse responseDto = new ApiResponse("댓글 조회가 완료되었습니다.", data);
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
+  }
+
+  // 댓글 신고
+  @PostMapping("/{commentId}/report")
+  public ResponseEntity<CommentCautionResponseDto> reportComment(@PathVariable Long postId,
+                                                                 @PathVariable Long commentId, @RequestBody CommentCautionRequestDto requestDto) {
+    CommentCautionResponseDto responseDto = new CommentCautionResponseDto(postId, commentId, requestDto, "댓글이 신고되었습니다.");
+    commentService.reportComment(postId, commentId, requestDto.getCautionReason());
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
   }
 }

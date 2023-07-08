@@ -2,6 +2,7 @@ package mega.naemeal.comment.service;
 
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
+import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.comment.entity.Comment;
 import mega.naemeal.comment.entity.CommentManage;
