@@ -1,6 +1,8 @@
 package mega.naemeal.admin.service;
 
 import lombok.RequiredArgsConstructor;
+import mega.naemeal.admin.dto.request.NoticeRequestDto;
+import mega.naemeal.admin.dto.response.NoticeResponseDto;
 import mega.naemeal.admin.entity.Notice;
 import mega.naemeal.admin.repository.NoticeRepository;
 import mega.naemeal.comment.dto.response.CommentCautionResponseDto;

@@ -1,5 +1,7 @@
 package mega.naemeal.admin.service;
 
+import mega.naemeal.admin.dto.request.NoticeRequestDto;
+import mega.naemeal.admin.dto.response.NoticeResponseDto;
 import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
 
 import java.util.List;
