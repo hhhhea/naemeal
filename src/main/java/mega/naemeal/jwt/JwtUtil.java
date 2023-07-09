@@ -15,6 +15,7 @@ import java.util.Base64;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mega.naemeal.config.RedisDao;
 import mega.naemeal.enums.JwtEnum;
 import mega.naemeal.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Value;
