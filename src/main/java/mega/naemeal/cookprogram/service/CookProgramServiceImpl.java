@@ -27,7 +27,7 @@ public class CookProgramServiceImpl implements CookProgramService{
 
         CookProgram post = new CookProgram(userId, requestDto.getTitle(),
                 requestDto.getContent(),
-                requestDto.getArea(), requestDto.getCenterName(), requestDto.getEndTime(),
+                requestDto.getArea(), requestDto.getLocationName(), requestDto.getDeadline(),
                 requestDto.getMaxEnrollmentNum(), CLOUD_FRONT_DOMAIN_NAME + imgPath);//닉네임, 지역,
         cookProgramRepository.save(post);
 

@@ -15,11 +15,10 @@ public class CookProgramResponseDto {
     private String title;
     private String content;
     private String area;
-    private String centerName; //세부 주소
-    private LocalDateTime endTime;
+    private String locationName; //세부 주소
+    private LocalDateTime deadline;
     private int maxEnrollmentNum;
     private PostStatus postStatus;
-    //    private LocalDateTime schedule;
     private String image;
 
 
@@ -28,10 +27,8 @@ public class CookProgramResponseDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.area = post.getArea();
-        this.centerName = post.getCenterName();
-        this.endTime = post.getEndTime();
-
-//        this.schedule = post.getSchedule();
+        this.locationName = post.getLocationName();
+        this.deadline = post.getDeadline();
 
     }
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/cookProgram")
 public class CookProgramController {
 
     private final CookProgramServiceImpl cookProgramService;
@@ -31,7 +32,7 @@ public class CookProgramController {
 
     //게시글 작성
     @Secured(UserRoleEnum.Authority.USER)
-    @PostMapping("/cookProgram")
+    @PostMapping
     public ResponseEntity<ApiResponse> createPost(
             @RequestPart("requestDto") CookProgramRequestDto requestDto,
             @RequestPart(value = "file", required = false) MultipartFile file,
@@ -49,7 +50,7 @@ public class CookProgramController {
 
     //게시글 수정
     @Secured(UserRoleEnum.Authority.USER)
-    @PatchMapping("/cookProgram/{postId}")
+    @PatchMapping("/{postId}")
     public ResponseEntity<ApiResponse> updatePost(
             @RequestPart("requestDto") CookProgramRequestDto requestDto,
             @RequestPart(value = "file", required = false) MultipartFile file,
@@ -70,7 +71,7 @@ public class CookProgramController {
 
     //게시글 삭제
     @Secured({UserRoleEnum.Authority.USER, UserRoleEnum.Authority.ADMIN})
-    @DeleteMapping("/cookProgram/{postId}")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Long postId,
                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponse responseDto = new ApiResponse("해당 요리프로그램글이 삭제되었습니다.");
@@ -81,7 +82,7 @@ public class CookProgramController {
 //-----------------------------------------------------------------------------------------------------------------------
 
     // 전체 모집글 조회
-    @GetMapping("/cookProgram")
+    @GetMapping
     public ResponseEntity<ApiResponse> getAllPost() {
         List<AllCookProgramResponseDto> data = cookProgramService.getAllPost();
 
@@ -91,7 +92,7 @@ public class CookProgramController {
     }
 
     // 선택 모집글 조회
-    @GetMapping("/cookProgram/{postId}")
+    @GetMapping("/{postId}")
     public ResponseEntity<ApiResponse> getPost(@PathVariable Long postId) {
         CookProgramResponseDto data = cookProgramService.getPost(postId);
         ApiResponse responseDto = new ApiResponse("선택한 요리프로그램 조회가 완료되었습니다.", data);
