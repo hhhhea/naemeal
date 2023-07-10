@@ -38,10 +38,10 @@ public class CookProgram extends TimeStamp {
     private String nickname;
 
     @Column
-    private String centerName;
+    private String locationName;
 
     @Column
-    private LocalDateTime endTime;
+    private LocalDateTime deadline;
 
     @Column(nullable = false)
     private String image;
@@ -49,7 +49,7 @@ public class CookProgram extends TimeStamp {
     //모집 날짜가 지나면 모집완료로 변경
     @PreUpdate
     public void beforeUpdate() {
-        if (LocalDateTime.now().isAfter(getEndTime())) {
+        if (LocalDateTime.now().isAfter(getDeadline())) {
             postStatus = PostStatus.FALSE;
         }
         else {
@@ -63,21 +63,21 @@ public class CookProgram extends TimeStamp {
     //모집 날짜 지난 경우 선택 불가
     @PrePersist
     public void checkEndTime() {
-        if (endTime.isBefore(LocalDateTime.now())) {
+        if (deadline.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("모집기간이 이미 지났습니다.");
         }
     }
 
 
     public CookProgram(String userId, String title, String content,
-                       String area, String centerName, LocalDateTime endTime, int maxEnrollmentNum, String image) {
+                       String area, String locationName, LocalDateTime deadline, int maxEnrollmentNum, String image) {
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.area = area;
 
-        this.centerName = centerName;
-        this.endTime = endTime;
+        this.locationName = locationName;
+        this.deadline = deadline;
         this.maxEnrollmentNum = maxEnrollmentNum;
         this.image = image;
     }
@@ -86,7 +86,7 @@ public class CookProgram extends TimeStamp {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.area = requestDto.getArea();
-        this.endTime = requestDto.getEndTime();
+        this.deadline = requestDto.getDeadline();
         this.image = imgPath;
     }
 
