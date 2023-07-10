@@ -81,7 +81,7 @@ public class CookProgramController {
     }
 //-----------------------------------------------------------------------------------------------------------------------
 
-    // 전체 모집글 조회
+    // 전체 요리프로그램글 조회
     @GetMapping
     public ResponseEntity<ApiResponse> getAllPost() {
         List<AllCookProgramResponseDto> data = cookProgramService.getAllPost();
@@ -91,7 +91,7 @@ public class CookProgramController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    // 선택 모집글 조회
+    // 선택 요리프로그램글 조회
     @GetMapping("/{postId}")
     public ResponseEntity<ApiResponse> getPost(@PathVariable Long postId) {
         CookProgramResponseDto data = cookProgramService.getPost(postId);
