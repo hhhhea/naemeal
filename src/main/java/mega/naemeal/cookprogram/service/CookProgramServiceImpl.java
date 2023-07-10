@@ -40,9 +40,9 @@ public class CookProgramServiceImpl implements CookProgramService{
     public CookProgramResponseDto updatePost(CookProgramRequestDto requestDto,
                                                    Long postId, String userId, String imgPath) {
         CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("해당 봉사모집글이 존재하지 않습니다."));
+                () -> new IllegalArgumentException("해당 요리프로그램글이 존재하지 않습니다."));
         if (!post.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("봉사모집글의 작성자가 일치하지 않습니다.");
+            throw new IllegalArgumentException("요리프로그램글의 작성자가 일치하지 않습니다.");
         } else {
             post.update(requestDto, CLOUD_FRONT_DOMAIN_NAME + imgPath);
         }
@@ -53,7 +53,7 @@ public class CookProgramServiceImpl implements CookProgramService{
     public String getPostImage(String userId, Long postId) {
         CookProgram post = cookProgramRepository.findByPostIdAndUserId(postId, userId)
                 .orElseThrow(
-                        () -> new IllegalArgumentException("해당 봉사모집글이 존재하지 않거나, 해당기업의 봉사모집글이 아닙니다. "));
+                        () -> new IllegalArgumentException("해당 요리프로그램글이 존재하지 않거나, 해당기업의 요리프로그램글이 아닙니다. "));
         return post.getImage().substring(38);
     }
 
@@ -62,17 +62,17 @@ public class CookProgramServiceImpl implements CookProgramService{
     @Override
     public void deletePost(Long postId, String userId) {
         CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("해당 봉사모집글이 존재하지 않습니다."));
+                () -> new IllegalArgumentException("해당 요리프로그램글이 존재하지 않습니다."));
 
         if (!post.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("봉사모집글의 작성자가 일치하지 않습니다.");
+            throw new IllegalArgumentException("요리프로그램글의 작성자가 일치하지 않습니다.");
         } else {
             cookProgramRepository.delete(post);
         }
     }
 
 
-    // 전체 모집글 조회
+    // 전체 요리프로그램글 조회
     @Override
     @Transactional(readOnly = true)
     public List<AllCookProgramResponseDto> getAllPost() {
@@ -84,12 +84,12 @@ public class CookProgramServiceImpl implements CookProgramService{
         return responseDto;
     }
 
-    // 선택 모집글 조회
+    // 선택 요리프로그램글 조회
     @Override
     @Transactional(readOnly = true)
     public CookProgramResponseDto getPost(Long postId) {
         CookProgram post = cookProgramRepository.findByPostId(postId).orElseThrow(
-                () -> new IllegalArgumentException("찾으시는 봉사모집글이 없습니다.")
+                () -> new IllegalArgumentException("찾으시는 요리프로그램글이 없습니다.")
         );
         CookProgramResponseDto responseDto = new CookProgramResponseDto(post);
 
