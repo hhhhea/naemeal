@@ -66,13 +66,6 @@ public class UserServiceImpl implements UserService {
     return new AuthenticatedUserInfoDto(user.getRole(), user.getUserId());
   }
 
-  @Override
-  public void signout(HttpServletRequest request) {
-    HttpSession session = request.getSession(false);
-    if (session != null) {
-      session.invalidate();
-    }
-  }
 
   @Override
   public void dropout(String userId, PasswordcheckRequestDto requestDto) {

@@ -2,9 +2,11 @@ package mega.naemeal.user.dto;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class SignupRequestDto {
 
   @Size(min = 10, max = 50, message = "아이디로 사용하실 이메일 주소를 입력해주세요.")

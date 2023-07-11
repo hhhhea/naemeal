@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.enums.UserRoleEnum;
@@ -12,6 +13,7 @@ import mega.naemeal.enums.UserRoleEnum;
 @Entity(name = "users")
 @Getter
 @NoArgsConstructor
+@Builder
 public class User {
 
   @Id
