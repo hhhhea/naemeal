@@ -11,5 +11,4 @@ public interface UserService {
   AuthenticatedUserInfoDto signin(SigninRequestDto requestDto);
   void dropout(String userId, PasswordcheckRequestDto requestDto);
 
-  void signout(HttpServletRequest request);
 }

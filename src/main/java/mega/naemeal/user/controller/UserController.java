@@ -67,7 +67,8 @@ public class UserController {
 
   //회원탈퇴
   @PatchMapping("/dropout")
-  public ResponseEntity<ApiResponse> dropout(@RequestBody PasswordcheckRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+  public ResponseEntity<ApiResponse> dropout(@RequestBody PasswordcheckRequestDto requestDto,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
     userService.dropout(userDetails.getUserId(), requestDto);
     ApiResponse responseDto = new ApiResponse("회원탈퇴가 완료되었습니다.");
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
