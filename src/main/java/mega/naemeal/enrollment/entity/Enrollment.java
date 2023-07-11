@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mega.naemeal.common.TimeStamp;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.enrollment.dto.request.EnrollmentRequestDto;
 import mega.naemeal.enums.EnrollmentStatus;
@@ -19,7 +20,7 @@ import mega.naemeal.enums.EnrollmentStatus;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Enrollment extends Timestamp {
+public class Enrollment extends TimeStamp {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
