@@ -59,10 +59,10 @@ class UserTest {
     User user = new User("arinlove123", "123456", "arin", UserRoleEnum.USER);
 
     // when
-    boolean isValid = user.isValidId("arin");
+    boolean isInvalid = user.isValidId("arin");
 
     // then
-    assertFalse(isValid);
+    assertFalse(isInvalid);
   }
 
 }

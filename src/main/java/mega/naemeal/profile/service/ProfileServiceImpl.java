@@ -34,9 +34,7 @@ public class ProfileServiceImpl implements ProfileService {
     Profile profile = profileRepository.findByUserId(userId).orElseThrow(
         () -> new IllegalArgumentException("프로필을 작성해주세요.")
     );
-    String imageUrl = profile.getImage();
-    String imageFileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-    return imageFileName;
+    return profile.getImage();
   }
 
   @Override
