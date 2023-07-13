@@ -13,6 +13,7 @@ public class AllCookProgramResponseDto {
     private String area;
     private String postStatus;
     private String image;
+    private String content;
 
 
     public AllCookProgramResponseDto(CookProgram cookProgram) {
@@ -21,6 +22,7 @@ public class AllCookProgramResponseDto {
         this.area = cookProgram.getArea();
         this.postStatus = String.valueOf(cookProgram.getPostStatus());
         this.image = cookProgram.getImage();
+        this.content = cookProgram.getContent();
 
     }
 

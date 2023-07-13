@@ -1,6 +1,8 @@
 package mega.naemeal.cookprogram.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.common.TimeStamp;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CookProgram extends TimeStamp {
 
     @Id
@@ -88,6 +92,7 @@ public class CookProgram extends TimeStamp {
         this.area = requestDto.getArea();
         this.deadline = requestDto.getDeadline();
         this.image = imgPath;
+        this.locationName = requestDto.getLocationName();
     }
 
 }
