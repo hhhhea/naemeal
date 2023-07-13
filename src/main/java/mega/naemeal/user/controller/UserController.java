@@ -16,6 +16,7 @@ import mega.naemeal.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class UserController {
   public ResponseEntity<ApiResponse> signup(@RequestBody @Valid SignupRequestDto requestDto) {
     ApiResponse responseDto = new ApiResponse("회원가입이 완료되었습니다.");
     userService.signup(requestDto);
-    return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
   }
 
   //로그인
@@ -66,7 +67,7 @@ public class UserController {
   }
 
   //회원탈퇴
-  @PatchMapping("/dropout")
+  @DeleteMapping("/dropout")
   public ResponseEntity<ApiResponse> dropout(@RequestBody PasswordcheckRequestDto requestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     userService.dropout(userDetails.getUserId(), requestDto);

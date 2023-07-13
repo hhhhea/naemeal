@@ -5,9 +5,9 @@ import mega.naemeal.admin.dto.request.NoticeRequestDto;
 import mega.naemeal.admin.dto.response.NoticeResponseDto;
 import mega.naemeal.admin.entity.Notice;
 import mega.naemeal.admin.repository.NoticeRepository;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.comment.entity.Comment;
-import mega.naemeal.comment.entity.CommentManage;
+import mega.naemeal.comment.entity.CommentReportManage;
 import mega.naemeal.comment.repository.CommentManageRepository;
 import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
@@ -140,15 +140,15 @@ public class AdminServiceImpl implements AdminService {
 
   //신고 유저 조회
   @Override
-  public List<CommentCautionResponseDto> getCautionUserList() {
+  public List<CommentReportResponseDto> getCautionUserList() {
 
-    List<CommentManage> commentManages = commentManageRepository.findAllByOrderByModifiedAtDesc();
-    List<CommentCautionResponseDto> CommentCautionResponseDtoList = new ArrayList<>();
+    List<CommentReportManage> commentReportManages = commentManageRepository.findAllByOrderByModifiedAtDesc();
+    List<CommentReportResponseDto> commentReportResponseDtoList = new ArrayList<>();
 
-    for (CommentManage commentManage : commentManages) {
-      CommentCautionResponseDtoList.add(new CommentCautionResponseDto(commentManage));
+    for (CommentReportManage commentReportManage : commentReportManages) {
+      commentReportResponseDtoList.add(new CommentReportResponseDto(commentReportManage));
     }
-    return CommentCautionResponseDtoList;
+    return commentReportResponseDtoList;
   }
 
 }

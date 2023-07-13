@@ -1,9 +1,9 @@
 package mega.naemeal.comment.controller;
 
 import lombok.RequiredArgsConstructor;
-import mega.naemeal.comment.dto.request.CommentCautionRequestDto;
+import mega.naemeal.comment.dto.request.CommentReportRequestDto;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.comment.service.CommentServiceImpl;
 import mega.naemeal.common.ApiResponse;
@@ -62,10 +62,10 @@ public class CommentController {
 
   // 댓글 신고
   @PostMapping("/{commentId}/report")
-  public ResponseEntity<CommentCautionResponseDto> reportComment(@PathVariable Long postId,
-                                                                 @PathVariable Long commentId, @RequestBody CommentCautionRequestDto requestDto) {
-    CommentCautionResponseDto responseDto = new CommentCautionResponseDto(postId, commentId, requestDto, "댓글이 신고되었습니다.");
-    commentService.reportComment(postId, commentId, requestDto.getCautionReason());
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+  public ResponseEntity<CommentReportResponseDto> reportComment(@PathVariable Long postId,
+                                                                 @PathVariable Long commentId, @RequestBody CommentReportRequestDto requestDto) {
+    CommentReportResponseDto responseDto = new CommentReportResponseDto(postId, commentId, requestDto, "댓글이 신고되었습니다.");
+    commentService.reportComment(postId, commentId, requestDto.getReportedReason());
+    return ResponseEntity.status(HttpStatus.OK).body(responseDto);
   }
 }

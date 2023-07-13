@@ -2,7 +2,7 @@ package mega.naemeal.admin.service;
 
 import mega.naemeal.admin.dto.request.NoticeRequestDto;
 import mega.naemeal.admin.dto.response.NoticeResponseDto;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public interface AdminService {
 
   void resumeUser(String userId);
 
-  List<CommentCautionResponseDto> getCautionUserList();
+  List<CommentReportResponseDto> getCautionUserList();
 
 
 }

@@ -26,8 +26,8 @@ public class EnrollmentController {
 
   private final EnrollmentServiceImpl enrollmentService;
 
-  //참여 신청(TRUE(확정) or FALSE(대기))
-  @PostMapping("/posts/{postId}/enrollments") //TRUE, FALSE
+
+  @PostMapping("/posts/{postId}/enrollments")
   public ResponseEntity<ApiResponse> attend(@PathVariable Long postId,
       @Valid @RequestBody EnrollmentRequestDto requestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
