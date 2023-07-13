@@ -3,7 +3,7 @@ package mega.naemeal.comment.service;
 import java.util.List;
 
 import mega.naemeal.comment.dto.request.CommentRequestDto;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.security.UserDetailsImpl;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public interface CommentService {
     List<CommentResponseDto> getCommentList(Long postId);
 
     // 댓글 신고
-    CommentCautionResponseDto reportComment(Long postId, Long commentId,
+    CommentReportResponseDto reportComment(Long postId, Long commentId,
                                             String cautionReason);
 
 }

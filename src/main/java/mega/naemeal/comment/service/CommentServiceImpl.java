@@ -2,10 +2,10 @@ package mega.naemeal.comment.service;
 
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.comment.dto.response.CommentResponseDto;
 import mega.naemeal.comment.entity.Comment;
-import mega.naemeal.comment.entity.CommentManage;
+import mega.naemeal.comment.entity.CommentReportManage;
 import mega.naemeal.comment.repository.CommentManageRepository;
 import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
@@ -93,7 +93,7 @@ public class CommentServiceImpl implements CommentService {
 
   // 댓글 신고 서비스
   @Transactional
-  public CommentCautionResponseDto reportComment(Long postId, Long commentId,
+  public CommentReportResponseDto reportComment(Long postId, Long commentId,
                                                  String cautionReason) {
     CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
             () -> new IllegalArgumentException("해당 게시글이 없습니다.")
@@ -101,9 +101,9 @@ public class CommentServiceImpl implements CommentService {
     Comment comment = commentRepository.findById(commentId).orElseThrow(
             () -> new IllegalArgumentException("신고할 댓글이 없습니다.")
     );
-    CommentManage commentManage = new CommentManage(post.getUserId(), commentId, cautionReason);
-    commentManageRepository.save(commentManage);
-    return new CommentCautionResponseDto(commentManage);
+    CommentReportManage commentReportManage = new CommentReportManage(post.getUserId(), commentId, cautionReason);
+    commentManageRepository.save(commentReportManage);
+    return new CommentReportResponseDto(commentReportManage);
 
   }
 

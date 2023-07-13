@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mega.naemeal.admin.dto.request.NoticeRequestDto;
 import mega.naemeal.admin.dto.response.NoticeResponseDto;
 import mega.naemeal.admin.service.AdminService;
-import mega.naemeal.comment.dto.response.CommentCautionResponseDto;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.common.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class AdminController {
   public ResponseEntity<ApiResponse> createNotice(@RequestBody NoticeRequestDto requestDto) {
     NoticeResponseDto data = adminService.createNotice(requestDto);
     ApiResponse responseDto = new ApiResponse("(admin) 공지사항 작성이 완료되었습니다.", data);
-    return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
 
   }
 
@@ -87,7 +87,7 @@ public class AdminController {
   }
 
   //유저 활동 재개
-  @PatchMapping("/users/{userId}/normal")
+  @PatchMapping("/users/{userId}/resume")
   public ResponseEntity<ApiResponse> resumeUser(@PathVariable String userId) {
     ApiResponse responseDto = new ApiResponse("(admin) 해당 유저가 활동 재개되었습니다.");
     adminService.resumeUser(userId);
@@ -95,9 +95,9 @@ public class AdminController {
   }
 
   // 신고받은 유저 조회
-  @GetMapping("/users/black-list")
+  @GetMapping("/users/blacklist")
   public ResponseEntity<ApiResponse> getCautionUserList(@PathVariable Long postId) {
-    List<CommentCautionResponseDto> data = adminService.getCautionUserList();
+    List<CommentReportResponseDto> data = adminService.getCautionUserList();
     ApiResponse responseDto = new ApiResponse("(admin) 신고 받은 유저 조회가 완료되었습니다.", data);
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }

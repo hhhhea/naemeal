@@ -8,25 +8,25 @@ import mega.naemeal.common.TimeStamp;
 @Getter
 @Entity
 @NoArgsConstructor
-public class CommentManage extends TimeStamp {
+public class CommentReportManage extends TimeStamp {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long cautionId;
+  private Long reportedId;
 
   @Column(nullable = false)
-  private String cautionUserId;
+  private String reportedUserId;
 
   @Column(nullable = false)
-  private String cautionReason;
+  private String reportedReason;
 
   @Column(nullable = false)
   private Long commentId;
 
 
-  public CommentManage(String cautionUserId, Long commentId, String cautionReason) {
-    this.cautionUserId = cautionUserId;
+  public CommentReportManage(String reportedUserId, Long commentId, String cautionReason) {
+    this.reportedUserId = reportedUserId;
     this.commentId = commentId;
-    this.cautionReason = cautionReason;
+    this.reportedReason = cautionReason;
   }
 }

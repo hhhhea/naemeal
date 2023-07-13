@@ -3,8 +3,8 @@ package mega.naemeal.comment.dto.request;
 import lombok.Getter;
 
 @Getter
-public class CommentCautionRequestDto {
+public class CommentReportRequestDto {
 
-  private String cautionReason;
+  private String reportedReason;
 
 }
