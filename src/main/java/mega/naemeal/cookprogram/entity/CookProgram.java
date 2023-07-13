@@ -92,6 +92,7 @@ public class CookProgram extends TimeStamp {
         this.area = requestDto.getArea();
         this.deadline = requestDto.getDeadline();
         this.image = imgPath;
+        this.locationName = requestDto.getLocationName();
     }
 
 }
