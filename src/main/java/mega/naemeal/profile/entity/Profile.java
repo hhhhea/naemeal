@@ -42,6 +42,9 @@ public class Profile extends TimeStamp {
     this.nickname = nickname;
   }
 
+  public Profile(String userId, UserStatus userStatus) {
+    super();
+  }
 
 
   public void updateProfile(ProfileRequestDto requestDto, String image) {

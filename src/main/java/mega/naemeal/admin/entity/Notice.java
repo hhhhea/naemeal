@@ -1,6 +1,8 @@
 package mega.naemeal.admin.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.common.TimeStamp;
@@ -8,6 +10,8 @@ import mega.naemeal.common.TimeStamp;
 @Getter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 public class Notice extends TimeStamp {
 
   @Id

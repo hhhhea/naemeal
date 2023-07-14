@@ -50,6 +50,10 @@ public class CookProgram extends TimeStamp {
     @Column(nullable = false)
     private String image;
 
+    public CookProgram(Long postId, String postTitle, String postContent) {
+        super();
+    }
+
     //모집 날짜가 지나면 모집완료로 변경
     @PreUpdate
     public void beforeUpdate() {
