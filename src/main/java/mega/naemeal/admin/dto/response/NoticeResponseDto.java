@@ -1,5 +1,7 @@
 package mega.naemeal.admin.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.admin.entity.Notice;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class NoticeResponseDto extends TimeStamp {
 
     private String title;

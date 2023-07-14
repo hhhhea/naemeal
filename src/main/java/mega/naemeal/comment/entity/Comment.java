@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
 import mega.naemeal.common.TimeStamp;
+import mega.naemeal.cookprogram.entity.CookProgram;
 
 @Getter
 @Entity
@@ -34,6 +35,10 @@ public class Comment extends TimeStamp {
         this.nickname = nickname;
         this.userId = userId;
         this.postId = postId;
+    }
+
+    public Comment(long l, String s, CookProgram mockPost) {
+        super();
     }
 
     public void updateComment(CommentRequestDto requestDto) {
