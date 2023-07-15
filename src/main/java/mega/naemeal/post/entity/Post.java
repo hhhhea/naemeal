@@ -1,6 +1,8 @@
 package mega.naemeal.post.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.common.TimeStamp;
@@ -9,6 +11,8 @@ import mega.naemeal.enums.Category;
 @Getter
 @Entity
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Post extends TimeStamp {
 
     @Id

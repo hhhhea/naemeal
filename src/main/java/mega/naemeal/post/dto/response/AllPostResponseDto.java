@@ -1,11 +1,15 @@
 package mega.naemeal.post.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.post.entity.Post;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class AllPostResponseDto {
 
     private Long postId;
