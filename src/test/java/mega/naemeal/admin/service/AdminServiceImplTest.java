@@ -7,7 +7,10 @@ import mega.naemeal.admin.dto.request.NoticeRequestDto;
 import mega.naemeal.admin.dto.response.NoticeResponseDto;
 import mega.naemeal.admin.entity.Notice;
 import mega.naemeal.admin.repository.NoticeRepository;
+import mega.naemeal.comment.dto.response.CommentReportResponseDto;
 import mega.naemeal.comment.entity.Comment;
+import mega.naemeal.comment.entity.CommentReportManage;
+import mega.naemeal.comment.repository.CommentManageRepository;
 import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.cookprogram.repository.CookProgramRepository;
@@ -39,6 +42,9 @@ public class AdminServiceImplTest {
 
     @Mock
     private ProfileRepository profileRepository;
+
+    @Mock
+    private CommentManageRepository commentManageRepository;
 
     @InjectMocks
     private AdminServiceImpl adminService;
@@ -378,6 +384,74 @@ public class AdminServiceImplTest {
 
         verify(profileRepository, times(1)).findByUserId(userId);
         verifyNoMoreInteractions(profileRepository);
+    }
+
+    @Test
+    @DisplayName("유저 활동 재개 테스트")
+    void resumeUserTest() {
+        // given
+        String userId = "testUser";
+        Profile mockProfile = new Profile(userId, UserStatus.BLOCKED);
+
+        when(profileRepository.findByUserId(userId)).thenReturn(Optional.of(mockProfile));
+
+        // when
+        adminService.resumeUser(userId);
+
+        // then
+        verify(profileRepository, times(1)).findByUserId(userId);
+        verifyNoMoreInteractions(profileRepository);
+    }
+
+    @Test
+    @DisplayName("유저 활동 재개 예외 테스트 - 프로필이 존재하지 않는 경우")
+    void resumeUserException_ProfileNotFound() {
+        // given
+        String userId = "testUser";
+
+        when(profileRepository.findByUserId(userId)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThrows(IllegalArgumentException.class, () -> {
+            adminService.resumeUser(userId);
+        });
+
+        verify(profileRepository, times(1)).findByUserId(userId);
+        verifyNoMoreInteractions(profileRepository);
+    }
+
+    @Test
+    @DisplayName("신고 유저 조회 테스트")
+    void getCautionUserListTest() {
+        // given
+        List<CommentReportManage> mockCommentReportManages = new ArrayList<>();
+        mockCommentReportManages.add(CommentReportManage.builder()
+                .reportedUserId("user1")
+                .reportedReason("Reason 1")
+                        .commentId(1L)
+                .build());
+        mockCommentReportManages.add(CommentReportManage.builder()
+                .reportedUserId("user2")
+                .reportedReason("Reason 2")
+                        .commentId(2L)
+                .build());
+
+        when(commentManageRepository.findAllByOrderByModifiedAtDesc()).thenReturn(mockCommentReportManages);
+
+        // when
+        List<CommentReportResponseDto> result = adminService.getCautionUserList();
+
+        // then
+        assertEquals(mockCommentReportManages.size(), result.size());
+        for (int i = 0; i < mockCommentReportManages.size(); i++) {
+            CommentReportManage expectedManage = mockCommentReportManages.get(i);
+            CommentReportResponseDto actualDto = result.get(i);
+            assertEquals(expectedManage.getCommentId(), actualDto.getCommentId());
+            assertEquals(expectedManage.getReportedReason(), actualDto.getReportedReason());
+        }
+
+        verify(commentManageRepository, times(1)).findAllByOrderByModifiedAtDesc();
+        verifyNoMoreInteractions(commentManageRepository);
     }
 
 

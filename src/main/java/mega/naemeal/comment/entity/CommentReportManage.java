@@ -1,13 +1,17 @@
 package mega.naemeal.comment.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.common.TimeStamp;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class CommentReportManage extends TimeStamp {
 
   @Id
@@ -29,4 +33,5 @@ public class CommentReportManage extends TimeStamp {
     this.commentId = commentId;
     this.reportedReason = cautionReason;
   }
+
 }
