@@ -6,6 +6,7 @@ import mega.naemeal.comment.entity.Comment;
 import mega.naemeal.post.entity.Post;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
