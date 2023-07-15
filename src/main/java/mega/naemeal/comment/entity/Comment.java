@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mega.naemeal.comment.dto.request.CommentRequestDto;
@@ -14,6 +16,8 @@ import mega.naemeal.cookprogram.entity.CookProgram;
 @Getter
 @Entity
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Comment extends TimeStamp {
 
     @Id

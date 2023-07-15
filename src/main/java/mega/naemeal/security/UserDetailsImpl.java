@@ -2,12 +2,15 @@ package mega.naemeal.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import lombok.Builder;
 import mega.naemeal.enums.UserRoleEnum;
 import mega.naemeal.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Builder
 public class UserDetailsImpl implements UserDetails {
 
   private final User user;
