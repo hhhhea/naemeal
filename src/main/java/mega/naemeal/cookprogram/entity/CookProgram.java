@@ -90,7 +90,7 @@ public class CookProgram extends TimeStamp {
         this.image = image;
     }
 
-    public void update(CookProgramRequestDto requestDto, String imgPath) {//지역, 상태,
+    public void update(CookProgramRequestDto requestDto, String imgPath) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.area = requestDto.getArea();
