@@ -17,7 +17,7 @@ import java.util.List;
 public class CookProgramServiceImpl implements CookProgramService{
 
     private final CookProgramRepository cookProgramRepository;
-    public static final String CLOUD_FRONT_DOMAIN_NAME = "https://d261u93iebql1x.cloudfront.net/";
+    public static final String CLOUD_FRONT_DOMAIN_NAME = "null/";
 
     //게시글 작성
     @Override
