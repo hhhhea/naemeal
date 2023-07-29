@@ -1,18 +1,17 @@
 package mega.naemeal.user.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.enums.UserRoleEnum;
 import mega.naemeal.jwt.AuthenticatedUserInfoDto;
 import mega.naemeal.profile.entity.Profile;
 import mega.naemeal.profile.repository.ProfileRepository;
+import mega.naemeal.security.UserDetailsServiceImpl;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
-import mega.naemeal.user.entity.User;
-import mega.naemeal.user.repository.UserRepository;
+import mega.naemeal.user.entity.Member;
+import mega.naemeal.user.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl implements UserService {
+public class MemberServiceImpl implements MemberService {
 
-  private final UserRepository userRepository;
+  private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
+  private final UserDetailsServiceImpl userDetailsService;
 
   private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
   private final ProfileRepository profileRepository;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     String password = passwordEncoder.encode(requestDto.getPassword());
     String nickname = requestDto.getNickname();
 
-    Optional<User> found = userRepository.findByUserId(requestDto.getUserId());
+    Optional<Member> found = memberRepository.findByUserId(requestDto.getUserId());
     if (found.isPresent()) {
       throw new IllegalArgumentException("중복된 아이디가 존재합니다.");
     }
@@ -49,34 +49,43 @@ public class UserServiceImpl implements UserService {
       role = UserRoleEnum.ADMIN;
     }
 
-    User user = new User(userId, password, nickname, role);
+    System.out.println(userId+"~~~~1");
+    System.out.println(password+"~~~~1");
+    System.out.println(nickname+"~~~~1");
+    System.out.println(role+"~~~~1");
+    Member member = new Member(userId, password, nickname, role);
     Profile profile = new Profile(userId, nickname, CLOUD_FRONT_DOMAIN_NAME+basicProfileImage);
-    userRepository.save(user);
+    memberRepository.save(member);
     profileRepository.save(profile);
   }
 
   @Override
   public AuthenticatedUserInfoDto signin(SigninRequestDto requestDto) {
-    User user = userRepository.findByUserId(requestDto.getUserId()).orElseThrow(
+    Member member = memberRepository.findByUserId(requestDto.getUserId()).orElseThrow(
         () -> new IllegalArgumentException("등록된 아이디가 없습니다.")
     );
-    if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+    if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
-    return new AuthenticatedUserInfoDto(user.getRole(), user.getUserId());
+
+    System.out.println(member.getRole()+"~~~~1");
+    System.out.println(member.getUserId()+"~~~~1");
+    userDetailsService.loadUserByUsername(member.getUserId());
+
+    return new AuthenticatedUserInfoDto(member.getRole(), member.getUserId());
   }
 
 
   @Override
   public void dropout(String userId, PasswordcheckRequestDto requestDto) {
-    User user = userRepository.findByUserId(userId).orElseThrow(
+    Member member = memberRepository.findByUserId(userId).orElseThrow(
         () -> new IllegalArgumentException("등록된 아이디가 없습니다.")
     );
-    if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+    if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
-    user.changeRole(UserRoleEnum.DROPPED);
-    userRepository.save(user);
+    member.changeRole(UserRoleEnum.DROPPED);
+    memberRepository.save(member);
   }
 
 }

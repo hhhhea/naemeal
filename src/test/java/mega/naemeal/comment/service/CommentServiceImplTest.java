@@ -17,7 +17,7 @@ import mega.naemeal.comment.repository.CommentRepository;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.cookprogram.repository.CookProgramRepository;
 import mega.naemeal.security.UserDetailsImpl;
-import mega.naemeal.user.entity.User;
+import mega.naemeal.user.entity.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class CommentServiceImplTest {
                 .comments(comments)
                 .build();
         UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .user(User.builder().nickname(nickname).build())
+                .member(Member.builder().nickname(nickname).build())
                 .build();
         CookProgram mockCookProgram = new CookProgram(postId, "Post Title", "Post Content");
         Comment mockComment = Comment.builder()
@@ -99,7 +99,7 @@ class CommentServiceImplTest {
                 .comments(updatedComment)
                 .build();
         UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .user(User.builder().nickname(nickname).userId(userId).build())
+                .member(Member.builder().nickname(nickname).userId(userId).build())
                 .build();
         CookProgram mockCookProgram = new CookProgram(postId, "Post Title", "Post Content");
         Comment mockComment = Comment.builder()
@@ -131,7 +131,7 @@ class CommentServiceImplTest {
         Long postId = 1L;
         Long commentId = 1L;
         UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .user(User.builder().nickname("John").userId("user123").build())
+                .member(Member.builder().nickname("John").userId("user123").build())
                 .build();
 
         CookProgram mockCookProgram = CookProgram.builder()
@@ -170,7 +170,7 @@ class CommentServiceImplTest {
         Long postId = 1L;
         Long commentId = 1L;
         UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .user(User.builder().nickname("John").userId("user123").build())
+                .member(Member.builder().nickname("John").userId("user123").build())
                 .build();
 
         CookProgram mockCookProgram = CookProgram.builder()
@@ -201,7 +201,7 @@ class CommentServiceImplTest {
         Long postId = 1L;
         Long commentId = 1L;
         UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .user(User.builder().nickname("John").userId("user123").build())
+                .member(Member.builder().nickname("John").userId("user123").build())
                 .build();
 
         CookProgram mockCookProgram = CookProgram.builder()

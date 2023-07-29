@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import lombok.Builder;
 import mega.naemeal.enums.UserRoleEnum;
-import mega.naemeal.user.entity.User;
+import mega.naemeal.user.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,16 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Builder
 public class UserDetailsImpl implements UserDetails {
 
-  private final User user;
-
-  public UserDetailsImpl(User user) {
-    this.user = user;
-  }
+  private final Member member;
 
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    UserRoleEnum role = user.getRole();
+    UserRoleEnum role = member.getRole();
     String authority = role.getAuthority();
 
     SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
@@ -36,8 +32,8 @@ public class UserDetailsImpl implements UserDetails {
     return null;
   }
 
-  public User getUser() {
-    return user;
+  public Member getMember() {
+    return member;
   }
 
   @Override
@@ -46,7 +42,7 @@ public class UserDetailsImpl implements UserDetails {
   }
 
   public String getUserId() {
-    return this.user.getUserId();
+    return this.member.getUserId();
   }
 
   @Override

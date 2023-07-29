@@ -12,12 +12,11 @@ import mega.naemeal.security.UserDetailsImpl;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
-import mega.naemeal.user.service.UserService;
+import mega.naemeal.user.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/users", produces = "application/json;charset=UTF-8")
-public class UserController {
+public class MemberController {
 
-  private final UserService userService;
+  private final MemberService memberService;
   private final JwtUtil jwtUtil;
   private final RedisDao redisDao;
 
@@ -36,7 +35,7 @@ public class UserController {
   @PostMapping("/signup")
   public ResponseEntity<ApiResponse> signup(@RequestBody @Valid SignupRequestDto requestDto) {
     ApiResponse responseDto = new ApiResponse("회원가입이 완료되었습니다.");
-    userService.signup(requestDto);
+    memberService.signup(requestDto);
     return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
   }
 
@@ -46,7 +45,7 @@ public class UserController {
       HttpServletResponse response) {
     ApiResponse responseDto = new ApiResponse("로그인이 완료되었습니다.");
 
-    AuthenticatedUserInfoDto userInfoDto = userService.signin(requestDto);
+    AuthenticatedUserInfoDto userInfoDto = memberService.signin(requestDto);
     String accessToken = jwtUtil.createToken(userInfoDto.getUsername(), userInfoDto.getRole());
     String refreshToken = jwtUtil.createRefreshToken(userInfoDto.getUsername(),
         userInfoDto.getRole());
@@ -70,7 +69,7 @@ public class UserController {
   @DeleteMapping("/dropout")
   public ResponseEntity<ApiResponse> dropout(@RequestBody PasswordcheckRequestDto requestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-    userService.dropout(userDetails.getUserId(), requestDto);
+    memberService.dropout(userDetails.getUserId(), requestDto);
     ApiResponse responseDto = new ApiResponse("회원탈퇴가 완료되었습니다.");
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }

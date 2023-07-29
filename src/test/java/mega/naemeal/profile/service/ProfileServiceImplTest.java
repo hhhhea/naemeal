@@ -9,8 +9,8 @@ import mega.naemeal.profile.dto.request.ProfileRequestDto;
 import mega.naemeal.profile.dto.response.ProfileResponseDto;
 import mega.naemeal.profile.entity.Profile;
 import mega.naemeal.profile.repository.ProfileRepository;
-import mega.naemeal.user.entity.User;
-import mega.naemeal.user.repository.UserRepository;
+import mega.naemeal.user.entity.Member;
+import mega.naemeal.user.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class ProfileServiceImplTest {
 
   @Mock
-  private UserRepository userRepository;
+  private MemberRepository memberRepository;
 
   @Mock
   private ProfileRepository profileRepository;
@@ -99,7 +99,7 @@ class ProfileServiceImplTest {
   @DisplayName("프로필 업데이트 성공 테스트")
   void updateProfile() {
     // given
-    User user = User.builder()
+    Member member = Member.builder()
         .userId(USER_ID)
         .password("12345678")
         .nickname("choiarin")
@@ -115,7 +115,7 @@ class ProfileServiceImplTest {
         .nickname("arin")
         .build();
 
-    when(userRepository.findByUserId(USER_ID)).thenReturn(Optional.of(user));
+    when(memberRepository.findByUserId(USER_ID)).thenReturn(Optional.of(member));
     when(profileRepository.findByUserId(USER_ID)).thenReturn(Optional.of(profile));
     when(passwordEncoder.matches(any(), any())).thenReturn(true); // 어떤 타입이든 모킹하고 싶을 때 any() 사용 // 여기선 인자 2개
 

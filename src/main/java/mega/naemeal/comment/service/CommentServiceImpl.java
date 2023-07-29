@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
         () -> new IllegalArgumentException("해당 게시글이 없습니다.")
     );
     Comment comment = new Comment(requestDto.getComments(), userDetails.getUserId(),
-        userDetails.getUser().getNickname(), postId);
+        userDetails.getMember().getNickname(), postId);
     commentRepository.save(comment);
     return new CommentResponseDto(comment);
   }
@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
         () -> new IllegalArgumentException("수정할 댓글이 없습니다.")
     );
 
-    if (!userDetails.getUser().isValidId(comment.getUserId())) {
+    if (!userDetails.getMember().isValidId(comment.getUserId())) {
       throw new IllegalArgumentException("본인의 댓글만 수정 가능합니다.");
     }
 
@@ -71,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
     Comment comment = commentRepository.findById(commentId).orElseThrow(
         () -> new IllegalArgumentException("삭제할 댓글이 없습니다.")
     );
-    if (!userDetails.getUser().isValidId(comment.getUserId())) {
+    if (!userDetails.getMember().isValidId(comment.getUserId())) {
       throw new IllegalArgumentException("본인의 댓글만 삭제 가능합니다.");
     }
 
