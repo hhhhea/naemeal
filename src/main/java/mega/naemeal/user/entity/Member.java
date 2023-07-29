@@ -14,7 +14,7 @@ import mega.naemeal.enums.UserRoleEnum;
 @Getter
 @NoArgsConstructor
 @Builder
-public class User {
+public class Member {
 
   @Id
   @Column(name = "user_id", nullable = false)
@@ -30,14 +30,14 @@ public class User {
   @Enumerated(value = EnumType.STRING)
   private UserRoleEnum role;
 
-  public User(String userId, String password, String nickname, UserRoleEnum role) {
+  public Member(String userId, String password, String nickname, UserRoleEnum role) {
     this.userId = userId;
     this.password = password;
     this.nickname = nickname;
     this.role = role;
   }
 
-  public User(String userId, String password, String nickname) {
+  public Member(String userId, String password, String nickname) {
     this.userId = userId;
     this.password = password;
     this.nickname = nickname;

@@ -13,8 +13,8 @@ import mega.naemeal.profile.repository.ProfileRepository;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
-import mega.naemeal.user.entity.User;
-import mega.naemeal.user.repository.UserRepository;
+import mega.naemeal.user.entity.Member;
+import mega.naemeal.user.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +24,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImplTest {
+class MemberServiceImplTest {
 
   @Mock
-  private UserRepository userRepository;
+  private MemberRepository memberRepository;
 
   @Mock
   private PasswordEncoder passwordEncoder;
@@ -36,7 +36,7 @@ class UserServiceImplTest {
   private ProfileRepository profileRepository;
 
   @InjectMocks
-  private UserServiceImpl userService;
+  private MemberServiceImpl userService;
 
 
   @Test
@@ -53,7 +53,7 @@ class UserServiceImplTest {
     userService.signup(requestDto);
 
     // then
-    verify(userRepository, times(1)).save(any(User.class));
+    verify(memberRepository, times(1)).save(any(Member.class));
   }
 
 
@@ -68,14 +68,14 @@ class UserServiceImplTest {
 
     String password = requestDto.getPassword();
 
-    User user = User.builder()
+    Member member = Member.builder()
         .userId("baesuzy")
         .password(passwordEncoder.encode(password))
         .role(UserRoleEnum.USER)
         .build();
 
-    when(userRepository.findByUserId("baesuzy")).thenReturn(Optional.of(user));
-    when(passwordEncoder.matches(password, user.getPassword())).thenReturn(true);
+    when(memberRepository.findByUserId("baesuzy")).thenReturn(Optional.of(member));
+    when(passwordEncoder.matches(password, member.getPassword())).thenReturn(true);
 
     // when
     AuthenticatedUserInfoDto result = userService.signin(requestDto);
@@ -84,7 +84,7 @@ class UserServiceImplTest {
     assertEquals(UserRoleEnum.USER, result.getRole());
     assertEquals("baesuzy", result.getUsername());
 
-    verify(userRepository, times(1)).findByUserId("baesuzy");
+    verify(memberRepository, times(1)).findByUserId("baesuzy");
   }
 
 
@@ -99,22 +99,22 @@ class UserServiceImplTest {
         .password("queencard1")
         .build();
 
-    User user = User.builder()
+    Member member = Member.builder()
         .userId(userId)
         .password(passwordEncoder.encode("password"))
         .role(UserRoleEnum.DROPPED)
         .build();
 
-    when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
-    when(passwordEncoder.matches(requestDto.getPassword(), user.getPassword())).thenReturn(true);
+    when(memberRepository.findByUserId(userId)).thenReturn(Optional.of(member));
+    when(passwordEncoder.matches(requestDto.getPassword(), member.getPassword())).thenReturn(true);
 
     // when
-    UserService userService = new UserServiceImpl(userRepository, passwordEncoder, profileRepository);
-    userService.dropout(userId, requestDto);
+    MemberService memberService = new MemberServiceImpl(memberRepository, passwordEncoder, profileRepository);
+    memberService.dropout(userId, requestDto);
 
     // then
-    verify(userRepository, times(1)).findByUserId(userId);
-    verify(userRepository, times(1)).save(user);
-    assertEquals(UserRoleEnum.DROPPED, user.getRole());
+    verify(memberRepository, times(1)).findByUserId(userId);
+    verify(memberRepository, times(1)).save(member);
+    assertEquals(UserRoleEnum.DROPPED, member.getRole());
   }
 }
