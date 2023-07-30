@@ -12,11 +12,15 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -45,32 +49,83 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
   }
 
+//  @Bean
+//  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//    http.csrf().disable()
+//        .cors();
+//        http.authorizeRequests()
+//        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+//        .requestMatchers("/users/signup").permitAll()
+//        .requestMatchers("/users/signin").permitAll()
+//        .requestMatchers("/admin/**").hasRole("ADMIN")
+//        .requestMatchers("/cookProgram/**").permitAll()
+//        .requestMatchers("/notices/**").permitAll()
+//        .requestMatchers("/profileImage/**").hasAnyRole("USER",  "ADMIN")
+//        .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
+//        .anyRequest().authenticated()
+//        .and().addFilterBefore(new JwtAuthFilter(jwtUtil, userDetailsService),
+//            UsernamePasswordAuthenticationFilter.class);
+//
+//    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//    http.formLogin().disable();
+//
+//    return http.build();
+//
+//  }
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.cors().and().csrf().disable().authorizeHttpRequests()
-        .requestMatchers(HttpMethod.OPTIONS).permitAll()
-        .requestMatchers("/users/signup").permitAll()
-        .requestMatchers("/users/signin").permitAll()
-        .requestMatchers("/admin/**").hasRole("ADMIN")
-        .requestMatchers("/cookProgram/**").permitAll()
-        .requestMatchers("/notices/**").permitAll()
-        .requestMatchers("/profileImage/**").hasAnyRole("USER",  "ADMIN")
-        .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
-        .anyRequest().authenticated()
-        .and().addFilterBefore(new JwtAuthFilter(jwtUtil, userDetailsService),
-            UsernamePasswordAuthenticationFilter.class);
+    // CSRF 설정
+    http.csrf(AbstractHttpConfigurer::disable);
 
-    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
+    http.sessionManagement((sessionManagement) ->
+        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    );
+
+    http.authorizeHttpRequests((authorizeHttpRequests) ->
+        authorizeHttpRequests
+            .requestMatchers(HttpMethod.OPTIONS).permitAll()
+            .requestMatchers("/users/signup").permitAll()
+            .requestMatchers("/users/signin").permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/cookProgram/**").permitAll()
+            .requestMatchers("/notices/**").permitAll()
+            .requestMatchers("/profileImage/**").hasAnyRole("USER", "ADMIN")
+            .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
+            .anyRequest().authenticated()
+            .and().addFilterBefore(new JwtAuthFilter(jwtUtil, userDetailsService),
+                UsernamePasswordAuthenticationFilter.class)
+    );
     http.formLogin().disable();
 
     return http.build();
-
   }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**")
         .exposedHeaders("Authorization")
-        .allowedMethods(ALLOWED_METHOD_NAMES.split(","));
+        .allowedOrigins("https://naemeal.store:8080/") // 허용할 출처
+        .allowCredentials(true) // 쿠키 인증 요청 허용
+        .allowedMethods("*")
+        .maxAge(3000); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
   }
+
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+//        config.addAllowedOriginPattern("*");
+    config.setAllowCredentials(true);
+    config.addAllowedOrigin("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    config.addExposedHeader("*"); // https://iyk2h.tistory.com/184?category=875351 // 헤더값 보내줄 거 설정.
+
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
+  }
+
 }
