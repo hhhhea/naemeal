@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/users", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/api/users", produces = "application/json;charset=UTF-8")
 public class MemberController {
 
   private final MemberService memberService;

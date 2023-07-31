@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/posts", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/api/posts", produces = "application/json;charset=UTF-8")
 public class PostController {
 
     private static String dirName = "recipe";
