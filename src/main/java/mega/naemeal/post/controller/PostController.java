@@ -31,10 +31,10 @@ public class PostController {
     //레시피 등록하기
     @PostMapping
     public ResponseEntity<ApiResponse> createRecipe(
-            @RequestPart("requestDto") PostRequestDto requestDto,
-            @RequestPart(value = "file", required = false) MultipartFile file,
-            @AuthenticationPrincipal UserDetailsImpl userDetails)
-            throws IOException {
+        @RequestPart("requestDto") PostRequestDto requestDto,
+        @RequestPart(value = "file", required = false) MultipartFile file,
+        @AuthenticationPrincipal UserDetailsImpl userDetails)
+        throws IOException {
         if (file == null) {
             imgPath = imgPath;
         } else {
@@ -65,7 +65,7 @@ public class PostController {
     //레시피 글 삭제
     @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Long postId,
-                                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        @AuthenticationPrincipal UserDetailsImpl userDetails) {
         postService.deletePost(postId, userDetails.getUserId());
         ApiResponse responseDto = new ApiResponse("레시피 삭제가 완료되었습니다.");
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -74,17 +74,17 @@ public class PostController {
     //레시피 글 수정
     @PatchMapping("/{postId}")
     public ResponseEntity<ApiResponse> updatePost(
-            @PathVariable Long postId,
-            @RequestPart("requestDto") PostRequestDto requestDto,
-            @RequestPart(value = "file", required = false) MultipartFile file,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        @PathVariable Long postId,
+        @RequestPart("requestDto") PostRequestDto requestDto,
+        @RequestPart(value = "file", required = false) MultipartFile file,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         if (file == null) {
             imgPath = postService.getPostImage(userDetails.getUserId(), postId);
         } else {
             imgPath = s3Service.updateImage(file, dirName);
         }
         PostResponseDto data = postService.updatePost(postId,
-                requestDto, imgPath, userDetails.getUserId());
+            requestDto, imgPath, userDetails.getUserId());
         ApiResponse responseDto = new ApiResponse("레시피 수정이 완료되었습니다.", data);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
