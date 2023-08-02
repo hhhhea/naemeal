@@ -26,12 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     );
 
     List<GrantedAuthority> authorities = Collections.singletonList(
-            new SimpleGrantedAuthority("ROLE_" + member.getRole().toString())
+        new SimpleGrantedAuthority("ROLE_" + member.getRole().toString())
     );
-    return User.builder().username(member.getUserId())
-            .password(member.getPassword())
-            .roles(member.getRole().toString())
-            .build();
+    return new UserDetailsImpl(member);
   }
 }
 
