@@ -59,7 +59,7 @@ class MemberServiceImplTest {
 
 //  @Test
 //  @DisplayName("로그인 성공 테스트")
-//  void siginin() {
+//  void signinTest() {
 //    // given
 //    SigninRequestDto requestDto = SigninRequestDto.builder()
 //        .userId("baesuzy")
@@ -87,34 +87,31 @@ class MemberServiceImplTest {
 //    verify(memberRepository, times(1)).findByUserId("baesuzy");
 //  }
 
+  @Test
+  @DisplayName("회원 탈퇴 테스트")
+  void dropoutTest() {
+    // given
+    String userId = "miyeoncho";
 
+    PasswordcheckRequestDto requestDto = PasswordcheckRequestDto.builder()
+        .password("queencard1")
+        .build();
 
-//  @Test
-//  @DisplayName("회원 탈퇴 테스트")
-//  void dropout() {
-//    // given
-//    String userId = "miyeoncho";
-//
-//    PasswordcheckRequestDto requestDto = PasswordcheckRequestDto.builder()
-//        .password("queencard1")
-//        .build();
-//
-//    Member member = Member.builder()
-//        .userId(userId)
-//        .password(passwordEncoder.encode("password"))
-//        .role(UserRoleEnum.DROPPED)
-//        .build();
-//
-//    when(memberRepository.findByUserId(userId)).thenReturn(Optional.of(member));
-//    when(passwordEncoder.matches(requestDto.getPassword(), member.getPassword())).thenReturn(true);
-//
-//    // when
-//    MemberService memberService = new MemberServiceImpl(memberRepository, passwordEncoder, ,profileRepository);
-//    memberService.dropout(userId, requestDto);
-//
-//    // then
-//    verify(memberRepository, times(1)).findByUserId(userId);
-//    verify(memberRepository, times(1)).save(member);
-//    assertEquals(UserRoleEnum.DROPPED, member.getRole());
-//  }
+    Member member = Member.builder()
+        .userId(userId)
+        .password(passwordEncoder.encode("password"))
+        .role(UserRoleEnum.USER)
+        .build();
+
+    when(memberRepository.findByUserId(userId)).thenReturn(Optional.of(member));
+    when(passwordEncoder.matches(requestDto.getPassword(), member.getPassword())).thenReturn(true);
+
+    // when
+    userService.dropout(userId, requestDto);
+
+    // then
+    verify(memberRepository, times(1)).findByUserId(userId);
+    verify(memberRepository, times(1)).save(member);
+    assertEquals(UserRoleEnum.DROPPED, member.getRole());
+  }
 }

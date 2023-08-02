@@ -8,13 +8,14 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mega.naemeal.common.TimeStamp;
 import mega.naemeal.enums.UserRoleEnum;
 
 @Entity(name = "users")
 @Getter
 @NoArgsConstructor
 @Builder
-public class Member {
+public class Member extends TimeStamp {
 
   @Id
   @Column(name = "user_id", nullable = false)

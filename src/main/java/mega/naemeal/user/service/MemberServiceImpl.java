@@ -27,8 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
   private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
   private final ProfileRepository profileRepository;
-  private static String basicProfileImage = "profile/profile-basic.jpg";
-  public static final String CLOUD_FRONT_DOMAIN_NAME = "https://d261u93iebql1x.cloudfront.net/";
+  private final String basicProfileImage = "https://naemeal.s3.ap-northeast-2.amazonaws.com/recipe/20234802234840-C%3A%5Cfakepath%5Cprofile-icon-design-free-vector.jpg";
 
   @Override
   public void signup(SignupRequestDto requestDto) {
@@ -54,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
     System.out.println(nickname+"~~~~1");
     System.out.println(role+"~~~~1");
     Member member = new Member(userId, password, nickname, role);
-    Profile profile = new Profile(userId, nickname, CLOUD_FRONT_DOMAIN_NAME+basicProfileImage);
+    Profile profile = new Profile(userId, nickname, basicProfileImage);
     memberRepository.save(member);
     profileRepository.save(profile);
   }

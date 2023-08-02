@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
   // 댓글 작성
   @Transactional
   public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto,
-                                          UserDetailsImpl userDetails) {
+      UserDetailsImpl userDetails) {
 
     CookProgram cookProgram = cookProgramRepository.findById(postId).orElseThrow(
         () -> new IllegalArgumentException("해당 게시글이 없습니다.")
@@ -94,12 +94,12 @@ public class CommentServiceImpl implements CommentService {
   // 댓글 신고 서비스
   @Transactional
   public CommentReportResponseDto reportComment(Long postId, Long commentId,
-                                                 String cautionReason) {
+      String cautionReason) {
     CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
-            () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+        () -> new IllegalArgumentException("해당 게시글이 없습니다.")
     );
     Comment comment = commentRepository.findById(commentId).orElseThrow(
-            () -> new IllegalArgumentException("신고할 댓글이 없습니다.")
+        () -> new IllegalArgumentException("신고할 댓글이 없습니다.")
     );
     CommentReportManage commentReportManage = new CommentReportManage(post.getUserId(), commentId, cautionReason);
     commentManageRepository.save(commentReportManage);

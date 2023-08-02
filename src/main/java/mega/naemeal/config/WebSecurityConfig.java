@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import mega.naemeal.jwt.JwtAuthFilter;
 import mega.naemeal.jwt.JwtUtil;
 import mega.naemeal.security.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +28,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
@@ -36,6 +38,15 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
   public static final String ALLOWED_METHOD_NAMES = "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH";
 
+  private final CorsConfig corsConfig;
+
+  @Autowired
+  public WebSecurityConfig(JwtUtil jwtUtil, CorsConfig corsConfig,
+      UserDetailsServiceImpl userDetailsService) {
+    this.jwtUtil = jwtUtil;
+    this.corsConfig = corsConfig;
+    this.userDetailsService = userDetailsService;
+  }
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -84,20 +95,23 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     );
 
     http.authorizeHttpRequests((authorizeHttpRequests) ->
-        authorizeHttpRequests
-            .requestMatchers(HttpMethod.OPTIONS).permitAll()
+            authorizeHttpRequests
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
 //            .requestMatchers("/","/users/signup","/users/signin","/cookProgram/**","/notices/**").permitAll()
-            .requestMatchers("/users/signup").permitAll()
-            .requestMatchers("/users/signin").permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .requestMatchers("/cookProgram/**").permitAll()
-            .requestMatchers("/notices/**").permitAll()
-            .requestMatchers("/profileImage/**").hasAnyRole("USER", "ADMIN")
-            .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
-            .anyRequest().authenticated()
+                .requestMatchers("/users/signup").permitAll()
+                .requestMatchers("/users/signin").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/cookProgram/**").permitAll()
+                .requestMatchers("/notices/**").permitAll()
+                .requestMatchers("/profileImage/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
     );
 
+    http.formLogin(AbstractHttpConfigurer::disable);
+
     http.addFilterBefore(new JwtAuthFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(corsConfig.corsFilter(), JwtAuthFilter.class);
 
     return http.build();
   }
@@ -127,5 +141,15 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 //    source.registerCorsConfiguration("/**", config);
 //    return source;
 //  }
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")
+        .allowCredentials(true)
+        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
+        .allowedOriginPatterns("*")
+        .allowedHeaders("*")
+        .exposedHeaders("Authorization", "RefreshToken");
+  }
 
 }

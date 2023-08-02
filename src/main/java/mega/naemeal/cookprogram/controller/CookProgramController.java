@@ -34,9 +34,9 @@ public class CookProgramController {
     @Secured(UserRoleEnum.Authority.USER)
     @PostMapping
     public ResponseEntity<ApiResponse> createPost(
-            @RequestPart("requestDto") CookProgramRequestDto requestDto,
-            @RequestPart(value = "file", required = false) MultipartFile file,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        @RequestPart("requestDto") CookProgramRequestDto requestDto,
+        @RequestPart(value = "file", required = false) MultipartFile file,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         if(file == null){
             imgPath = imgPath;
         }else {
@@ -52,17 +52,17 @@ public class CookProgramController {
     @Secured(UserRoleEnum.Authority.USER)
     @PatchMapping("/{postId}")
     public ResponseEntity<ApiResponse> updatePost(
-            @RequestPart("requestDto") CookProgramRequestDto requestDto,
-            @RequestPart(value = "file", required = false) MultipartFile file,
-            @PathVariable Long postId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        @RequestPart("requestDto") CookProgramRequestDto requestDto,
+        @RequestPart(value = "file", required = false) MultipartFile file,
+        @PathVariable Long postId,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         if(file == null){
             imgPath = cookProgramService.getPostImage(userDetails.getUserId(), postId);
         }else {
             imgPath = s3Service.updateImage(file, dirName);
         }
         CookProgramResponseDto data = cookProgramService.updatePost(requestDto, postId,
-                userDetails.getUserId(), imgPath);
+            userDetails.getUserId(), imgPath);
         ApiResponse responseDto = new ApiResponse("요리프로그램글이 수정되었습니다.", data);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -73,7 +73,7 @@ public class CookProgramController {
     @Secured({UserRoleEnum.Authority.USER, UserRoleEnum.Authority.ADMIN})
     @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Long postId,
-                                                        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponse responseDto = new ApiResponse("해당 요리프로그램글이 삭제되었습니다.");
         cookProgramService.deletePost(postId, userDetails.getUserId());
 

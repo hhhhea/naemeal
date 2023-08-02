@@ -22,13 +22,12 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
-    public static final String CLOUD_FRONT_DOMAIN_NAME = "https://d261u93iebql1x.cloudfront.net/"; //예시 링크 수정 필요
 
     // 글 등록
     @Override
     public PostResponseDto createPost(PostRequestDto requestDto, String imgPath, String userId) {
         Post recipePost = new Post(Category.RECIPE, userId, requestDto.getTitle(),
-                requestDto.getContent(), CLOUD_FRONT_DOMAIN_NAME+imgPath);
+            requestDto.getContent(), imgPath);
         Post savedPost = postRepository.save(recipePost);
         return new PostResponseDto(savedPost);
     }
@@ -37,8 +36,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Long postId, String userId) {
         Post post = postRepository.findByPostIdAndUserId(
-                postId, userId).orElseThrow(
-                () -> new IllegalArgumentException("삭제할 글이 존재하지 않습니다."));
+            postId, userId).orElseThrow(
+            () -> new IllegalArgumentException("삭제할 글이 존재하지 않습니다."));
         postRepository.delete(post);
     }
 
@@ -59,9 +58,9 @@ public class PostServiceImpl implements PostService {
     @Transactional(readOnly = true)
     public PostResponseDto getPost(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("탐색한 글이 존재하지 않습니다..")
-                );
+            .orElseThrow(
+                () -> new IllegalArgumentException("탐색한 글이 존재하지 않습니다..")
+            );
         List<Comment> comments = commentRepository.findByPostId(post.getPostId());
         return new PostResponseDto(post, comments);
     }
@@ -80,21 +79,21 @@ public class PostServiceImpl implements PostService {
     //글 수정
     @Override
     public PostResponseDto updatePost(Long postId,
-                                      PostRequestDto requestDto, String imgPath, String userId) {
+        PostRequestDto requestDto, String imgPath, String userId) {
         Post post = postRepository.findByPostIdAndUserId(
-                postId, userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
+            postId, userId).orElseThrow(
+            () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
         );
-        post.update(requestDto.getTitle(), requestDto.getContent(), CLOUD_FRONT_DOMAIN_NAME+imgPath);
+        post.update(requestDto.getTitle(), requestDto.getContent(), imgPath);
         return new PostResponseDto(post);
     }
 
     @Override
     public String getPostImage(String userId, Long postId) {
         Post post = postRepository.findByPostIdAndUserId(
-                postId, userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
+            postId, userId).orElseThrow(
+            () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
         );
-        return post.getImage().substring(CLOUD_FRONT_DOMAIN_NAME.length());
+        return post.getImage();
     }
 }

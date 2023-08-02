@@ -47,7 +47,7 @@ public class AdminController {
   //공지사항 수정
   @PatchMapping("/notices/{noticeId}")
   public ResponseEntity<ApiResponse> updateNotice(@PathVariable Long noticeId,
-                                                  @RequestBody NoticeRequestDto requestDto) {
+      @RequestBody NoticeRequestDto requestDto) {
     NoticeResponseDto data = adminService.updateNotice(noticeId, requestDto);
     ApiResponse responseDto = new ApiResponse("(admin) 공지사항 수정이 완료되었습니다.", data);
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class AdminController {
   //댓글 삭제
   @DeleteMapping("/notices/{noticeId}/comments/{commentId}")
   public ResponseEntity<ApiResponse> adminDeleteComment(@PathVariable Long postId,
-                                                        @PathVariable Long commentId) {
+      @PathVariable Long commentId) {
     ApiResponse responseDto = new ApiResponse("(admin) 해당 댓글이 삭제되었습니다.");
     adminService.adminDeleteComment(postId, commentId);
     return new ResponseEntity<>(responseDto, HttpStatus.OK);//responseDto

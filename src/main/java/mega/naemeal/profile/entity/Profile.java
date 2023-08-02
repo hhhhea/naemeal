@@ -36,11 +36,12 @@ public class Profile extends TimeStamp {
     this.image = image;
   }
 
-  public Profile(String userId, String tel, String nickname) {
+  public Profile(String userId, String nickname, String image) {
     this.userId = userId;
-    this.tel = tel;
     this.nickname = nickname;
+    this.image = image;
   }
+
 
   public Profile(String userId, UserStatus userStatus) {
     super();

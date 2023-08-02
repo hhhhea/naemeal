@@ -29,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getPassword() {
-    return null;
+    return member.getPassword();
   }
 
   public Member getMember() {
@@ -38,7 +38,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    return null;
+    return member.getUserId();
   }
 
   public String getUserId() {

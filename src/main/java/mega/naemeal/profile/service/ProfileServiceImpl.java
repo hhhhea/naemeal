@@ -19,7 +19,6 @@ public class ProfileServiceImpl implements ProfileService {
   private final MemberRepository memberRepository;
   private final ProfileRepository profileRepository;
   private final PasswordEncoder passwordEncoder;
-  public static final String CLOUD_FRONT_DOMAIN_NAME = "https://d261u93iebql1x.cloudfront.net/";
 
   @Override
   public ProfileResponseDto getCustomerProfile(String userId) {
@@ -48,7 +47,7 @@ public class ProfileServiceImpl implements ProfileService {
     if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
-    profile.updateProfile(requestDto, CLOUD_FRONT_DOMAIN_NAME+imgPath);
+    profile.updateProfile(requestDto, imgPath);
     member.changeNickname(requestDto.getNickname());
 
     return new ProfileResponseDto(userId, profile);

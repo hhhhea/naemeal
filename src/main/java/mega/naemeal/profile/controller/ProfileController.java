@@ -25,8 +25,8 @@ public class ProfileController {
 
   private final ProfileService profileService;
   private final S3Service s3Service;
-  private static String dirName = "profile";
-  private static String imgPath;
+  private String dirName = "profile";
+  private String imgPath;
 
   @GetMapping("/my")
   public ResponseEntity<ApiResponse> getCustomerProfileByUserId(

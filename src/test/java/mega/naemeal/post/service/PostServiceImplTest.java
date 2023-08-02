@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static mega.naemeal.post.service.PostServiceImpl.CLOUD_FRONT_DOMAIN_NAME;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -267,7 +267,7 @@ class PostServiceImplTest {
         Post mockPost = Post.builder()
                 .postId(postId)
                 .userId(userId)
-                .image(CLOUD_FRONT_DOMAIN_NAME + image)
+                .image(image)
                 .build();
 
         when(postRepository.findByPostIdAndUserId(postId, userId)).thenReturn(Optional.of(mockPost));
