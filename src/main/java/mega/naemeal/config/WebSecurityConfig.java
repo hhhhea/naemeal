@@ -95,17 +95,17 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     );
 
     http.authorizeHttpRequests((authorizeHttpRequests) ->
-        authorizeHttpRequests
-            .requestMatchers(HttpMethod.OPTIONS).permitAll()
+            authorizeHttpRequests
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
 //            .requestMatchers("/","/users/signup","/users/signin","/cookProgram/**","/notices/**").permitAll()
-            .requestMatchers("/users/signup").permitAll()
-            .requestMatchers("/users/signin").permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .requestMatchers("/cookProgram/**").permitAll()
-            .requestMatchers("/notices/**").permitAll()
-            .requestMatchers("/profileImage/**").hasAnyRole("USER", "ADMIN")
-            .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
-            .anyRequest().authenticated()
+                .requestMatchers("/users/signup").permitAll()
+                .requestMatchers("/users/signin").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/cookProgram/**").permitAll()
+                .requestMatchers("/notices/**").permitAll()
+                .requestMatchers("/profileImage/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/my/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
     );
 
     http.formLogin(AbstractHttpConfigurer::disable);
