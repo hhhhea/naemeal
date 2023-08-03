@@ -11,12 +11,12 @@ import java.util.List;
 public interface PostService {
 
     PostResponseDto createPost(PostRequestDto requestDto, String imgPath, String userId);
-    void deletePost(@PathVariable Long challengeAuthId, String userId);
+    void deletePost(@PathVariable Long postId);
     List<AllPostResponseDto> getAllRecipePosts();
-    PostResponseDto getPost(Long challengeAuthId);
+    PostResponseDto getPost(Long postId);
     List<AllPostResponseDto> getAllPosts(String userId);
-    PostResponseDto updatePost(@PathVariable Long challengeAuthId, PostRequestDto requestDto, String imgPath, String userId);
-    String getPostImage(String userId, Long challengeAuthId);
+    PostResponseDto updatePost(@PathVariable Long postId, PostRequestDto requestDto, String imgPath, String userId);
+    String getPostImage(String userId, Long postId);
 
 
 }

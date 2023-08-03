@@ -97,7 +97,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     http.authorizeHttpRequests((authorizeHttpRequests) ->
             authorizeHttpRequests
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
-//            .requestMatchers("/","/users/signup","/users/signin","/cookProgram/**","/notices/**").permitAll()
                 .requestMatchers("/users/signup").permitAll()
                 .requestMatchers("/users/signin").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -115,32 +114,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     return http.build();
   }
-
-//  @Override
-//  public void addCorsMappings(CorsRegistry registry) {
-//    registry.addMapping("/**")
-//        .exposedHeaders("Authorization")
-//        .allowedOrigins("*") // 허용할 출처
-//        .allowCredentials(true) // 쿠키 인증 요청 허용
-//        .allowedMethods("*")
-//        .maxAge(3000); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
-//  }
-//
-//  @Bean
-//  public CorsConfigurationSource corsConfigurationSource() {
-//    CorsConfiguration config = new CorsConfiguration();
-////        config.addAllowedOriginPattern("*");
-//    config.setAllowCredentials(true);
-//    config.addAllowedOrigin("*");
-//    config.addAllowedHeader("*");
-//    config.addAllowedMethod("*");
-//    config.addExposedHeader("*"); // https://iyk2h.tistory.com/184?category=875351 // 헤더값 보내줄 거 설정.
-//
-//
-//    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//    source.registerCorsConfiguration("/**", config);
-//    return source;
-//  }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {

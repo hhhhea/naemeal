@@ -57,35 +57,6 @@ class MemberServiceImplTest {
   }
 
 
-//  @Test
-//  @DisplayName("로그인 성공 테스트")
-//  void signinTest() {
-//    // given
-//    SigninRequestDto requestDto = SigninRequestDto.builder()
-//        .userId("baesuzy")
-//        .password("missa")
-//        .build();
-//
-//    String password = requestDto.getPassword();
-//
-//    Member member = Member.builder()
-//        .userId("baesuzy")
-//        .password(passwordEncoder.encode(password))
-//        .role(UserRoleEnum.USER)
-//        .build();
-//
-//    when(memberRepository.findByUserId("baesuzy")).thenReturn(Optional.of(member));
-//    when(passwordEncoder.matches(password, member.getPassword())).thenReturn(true);
-//
-//    // when
-//    AuthenticatedUserInfoDto result = userService.signin(requestDto);
-//
-//    // then
-//    assertEquals(UserRoleEnum.USER, result.getRole());
-//    assertEquals("baesuzy", result.getUsername());
-//
-//    verify(memberRepository, times(1)).findByUserId("baesuzy");
-//  }
 
   @Test
   @DisplayName("회원 탈퇴 테스트")

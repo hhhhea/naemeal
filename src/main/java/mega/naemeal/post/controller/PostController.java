@@ -66,8 +66,11 @@ public class PostController {
     @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        postService.deletePost(postId, userDetails.getUserId());
+        System.out.println(postId);
+        System.out.println( userDetails.getUserId());
+        postService.deletePost(postId);
         ApiResponse responseDto = new ApiResponse("레시피 삭제가 완료되었습니다.");
+        System.out.println("delete~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

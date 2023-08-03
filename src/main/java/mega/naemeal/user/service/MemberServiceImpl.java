@@ -48,10 +48,6 @@ public class MemberServiceImpl implements MemberService {
       role = UserRoleEnum.ADMIN;
     }
 
-    System.out.println(userId+"~~~~1");
-    System.out.println(password+"~~~~1");
-    System.out.println(nickname+"~~~~1");
-    System.out.println(role+"~~~~1");
     Member member = new Member(userId, password, nickname, role);
     Profile profile = new Profile(userId, nickname, basicProfileImage);
     memberRepository.save(member);
@@ -67,8 +63,6 @@ public class MemberServiceImpl implements MemberService {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
 
-    System.out.println(member.getRole()+"~~~~1");
-    System.out.println(member.getUserId()+"~~~~1");
     userDetailsService.loadUserByUsername(member.getUserId());
 
     return new AuthenticatedUserInfoDto(member.getRole(), member.getUserId());

@@ -79,7 +79,6 @@ public class CookProgramController {
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);//responseDto
     }
-//-----------------------------------------------------------------------------------------------------------------------
 
     // 전체 요리프로그램글 조회
     @GetMapping
