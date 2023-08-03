@@ -89,13 +89,13 @@ class PostServiceImplTest {
                 .userId(userId)
                 .build();
 
-        when(postRepository.findByPostIdAndUserId(postId, userId)).thenReturn(Optional.of(mockPost));
+        when(postRepository.findByPostId(postId)).thenReturn(Optional.of(mockPost));
 
         // when
-        assertDoesNotThrow(() -> postService.deletePost(postId, userId));
+        assertDoesNotThrow(() -> postService.deletePost(postId));
 
         // then
-        verify(postRepository, times(1)).findByPostIdAndUserId(postId, userId);
+        verify(postRepository, times(1)).findByPostId(postId);
         verify(postRepository, times(1)).delete(mockPost);
         verifyNoMoreInteractions(postRepository);
     }
@@ -242,7 +242,7 @@ class PostServiceImplTest {
                 .content("Original Content")
                 .build();
 
-        when(postRepository.findByPostIdAndUserId(postId, userId)).thenReturn(Optional.of(mockPost));
+        when(postRepository.findByPostId(postId)).thenReturn(Optional.of(mockPost));
 
         // when
         PostResponseDto result = postService.updatePost(postId, requestDto, imgPath, userId);
@@ -253,7 +253,7 @@ class PostServiceImplTest {
         assertEquals(requestDto.getTitle(), result.getTitle());
         assertEquals(requestDto.getContent(), result.getContent());
 
-        verify(postRepository, times(1)).findByPostIdAndUserId(postId, userId);
+        verify(postRepository, times(1)).findByPostId(postId);
         verifyNoMoreInteractions(postRepository);
     }
 
@@ -270,7 +270,7 @@ class PostServiceImplTest {
                 .image(image)
                 .build();
 
-        when(postRepository.findByPostIdAndUserId(postId, userId)).thenReturn(Optional.of(mockPost));
+        when(postRepository.findByPostId(postId)).thenReturn(Optional.of(mockPost));
 
         // when
         String result = postService.getPostImage(userId, postId);
@@ -279,7 +279,7 @@ class PostServiceImplTest {
         assertNotNull(result);
         assertEquals(image, result);
 
-        verify(postRepository, times(1)).findByPostIdAndUserId(postId, userId);
+        verify(postRepository, times(1)).findByPostId(postId);
         verifyNoMoreInteractions(postRepository);
     }
 

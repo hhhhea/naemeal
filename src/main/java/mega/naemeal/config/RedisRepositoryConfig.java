@@ -18,12 +18,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisRepositoryConfig {
   private final RedisProperties redisProperties;
 
-
-//  @Bean
-//  public RedisConnectionFactory redisConnectionFactory() {
-//    return new LettuceConnectionFactory(redisProperties.getHost(), redisProperties.getPort());
-//  }
-
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
     RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();

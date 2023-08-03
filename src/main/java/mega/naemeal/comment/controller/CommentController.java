@@ -22,7 +22,6 @@ public class CommentController {
 
   private final CommentServiceImpl commentService;
 
-  // /posts/1/comments/2
 
   // 댓글 작성
   @PostMapping

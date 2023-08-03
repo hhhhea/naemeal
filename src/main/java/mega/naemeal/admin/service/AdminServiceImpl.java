@@ -98,7 +98,7 @@ public class AdminServiceImpl implements AdminService {
 
     cookProgramRepository.delete(post);
 
-    commentRepository.deleteByPostId(postId); // delete from comment where post_id = ?
+    commentRepository.deleteByPostId(postId);
   }
 
   //댓글 삭제
@@ -125,7 +125,6 @@ public class AdminServiceImpl implements AdminService {
 
     profile.changeUserEnum(UserStatus.BLOCKED);
 
-//    profileRepository.save(profile);
   }
 
   //유저 활동 재개
@@ -135,7 +134,6 @@ public class AdminServiceImpl implements AdminService {
         () -> new IllegalArgumentException("프로필이 존재하지 않습니다.")
     );
     profile.changeUserEnum(UserStatus.STANDARD);
-//    profileRepository.save(profile);
   }
 
   //신고 유저 조회

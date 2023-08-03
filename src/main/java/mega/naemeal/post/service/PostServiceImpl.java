@@ -1,5 +1,7 @@
 package mega.naemeal.post.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mega.naemeal.comment.entity.Comment;
 import mega.naemeal.comment.repository.CommentRepository;
@@ -34,9 +36,9 @@ public class PostServiceImpl implements PostService {
 
     //삭제
     @Override
-    public void deletePost(Long postId, String userId) {
-        Post post = postRepository.findByPostIdAndUserId(
-            postId, userId).orElseThrow(
+    public void deletePost(Long postId) {
+        Post post = postRepository.findByPostId(
+            postId).orElseThrow(
             () -> new IllegalArgumentException("삭제할 글이 존재하지 않습니다."));
         postRepository.delete(post);
     }
@@ -80,8 +82,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseDto updatePost(Long postId,
         PostRequestDto requestDto, String imgPath, String userId) {
-        Post post = postRepository.findByPostIdAndUserId(
-            postId, userId).orElseThrow(
+        Post post = postRepository.findByPostId(
+            postId).orElseThrow(
             () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
         );
         post.update(requestDto.getTitle(), requestDto.getContent(), imgPath);
@@ -90,8 +92,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public String getPostImage(String userId, Long postId) {
-        Post post = postRepository.findByPostIdAndUserId(
-            postId, userId).orElseThrow(
+        Post post = postRepository.findByPostId(
+            postId).orElseThrow(
             () -> new IllegalArgumentException("해당 글이 없거나, 본인의 글이 아닙니다.")
         );
         return post.getImage();
