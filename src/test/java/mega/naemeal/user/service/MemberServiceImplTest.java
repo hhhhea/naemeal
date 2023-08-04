@@ -2,6 +2,7 @@ package mega.naemeal.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import mega.naemeal.enums.UserRoleEnum;
 import mega.naemeal.jwt.AuthenticatedUserInfoDto;
 import mega.naemeal.profile.repository.ProfileRepository;
+import mega.naemeal.security.UserDetailsServiceImpl;
 import mega.naemeal.user.dto.PasswordcheckRequestDto;
 import mega.naemeal.user.dto.SigninRequestDto;
 import mega.naemeal.user.dto.SignupRequestDto;
@@ -33,6 +35,9 @@ class MemberServiceImplTest {
   private PasswordEncoder passwordEncoder;
 
   @Mock
+  private UserDetailsServiceImpl userDetailsService;
+
+  @Mock
   private ProfileRepository profileRepository;
 
   @InjectMocks
@@ -41,12 +46,12 @@ class MemberServiceImplTest {
 
   @Test
   @DisplayName("회원가입 성공 테스트")
-  public void signupTest() {
+  public void signup() {
     // given
     SignupRequestDto requestDto = SignupRequestDto.builder()
-        .userId("minji123")
+        .userId("minji123@gmail.com")
         .nickname("NewJeans")
-        .password("newjeans0722")
+        .password("newjeans1234")
         .build();
 
     // when
@@ -60,7 +65,7 @@ class MemberServiceImplTest {
 
   @Test
   @DisplayName("회원 탈퇴 테스트")
-  void dropoutTest() {
+  void dropout() {
     // given
     String userId = "miyeoncho";
 
@@ -84,5 +89,36 @@ class MemberServiceImplTest {
     verify(memberRepository, times(1)).findByUserId(userId);
     verify(memberRepository, times(1)).save(member);
     assertEquals(UserRoleEnum.DROPPED, member.getRole());
+  }
+
+  @Test
+  @DisplayName("로그인 성공 테스트")
+  void siginin() {
+    // given
+    SigninRequestDto requestDto = SigninRequestDto.builder()
+        .userId("baesuzy")
+        .password("missa")
+        .build();
+
+    String password = requestDto.getPassword();
+
+    Member member = Member.builder()
+        .userId("baesuzy")
+        .password(passwordEncoder.encode(password))
+        .role(UserRoleEnum.USER)
+        .build();
+
+    given(memberRepository.findByUserId("baesuzy")).willReturn(Optional.of(member));
+    given(passwordEncoder.matches(password, member.getPassword())).willReturn(true);
+    given(userDetailsService.loadUserByUsername("baesuzy")).willReturn(null);
+
+    // when
+    AuthenticatedUserInfoDto result = userService.signin(requestDto);
+
+    // then
+    assertEquals(UserRoleEnum.USER, result.getRole());
+    assertEquals("baesuzy", result.getUsername());
+
+    verify(memberRepository, times(1)).findByUserId("baesuzy");
   }
 }

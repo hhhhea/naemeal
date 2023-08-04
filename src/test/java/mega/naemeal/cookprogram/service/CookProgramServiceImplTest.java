@@ -5,14 +5,11 @@ import mega.naemeal.cookprogram.dto.CookProgramRequestDto;
 import mega.naemeal.cookprogram.dto.CookProgramResponseDto;
 import mega.naemeal.cookprogram.entity.CookProgram;
 import mega.naemeal.cookprogram.repository.CookProgramRepository;
-import mega.naemeal.enums.PostStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
@@ -24,6 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class CookProgramServiceImplTest {
 
     @Mock
@@ -32,10 +30,6 @@ public class CookProgramServiceImplTest {
     @InjectMocks
     private CookProgramServiceImpl cookProgramService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     @DisplayName("게시글 작성 테스트")
@@ -75,7 +69,6 @@ public class CookProgramServiceImplTest {
         assertEquals(savedCookProgram.getLocationName(), responseDto.getLocationName());
         assertEquals(savedCookProgram.getDeadline(), responseDto.getDeadline());
 
-        // 적절한 메서드가 호출되었는지 검증
         verify(cookProgramRepository, times(1)).save(any(CookProgram.class));
     }
 
@@ -120,7 +113,7 @@ public class CookProgramServiceImplTest {
                 .build();
 
         when(cookProgramRepository.findById(postId)).thenReturn(Optional.of(existingPost));
-        when(cookProgramRepository.save(any(CookProgram.class))).thenReturn(updatedPost);
+//        when(cookProgramRepository.save(any(CookProgram.class))).thenReturn(updatedPost);
 
         // when
         CookProgramResponseDto responseDto = cookProgramService.updatePost(requestDto, postId, userId, imgPath);

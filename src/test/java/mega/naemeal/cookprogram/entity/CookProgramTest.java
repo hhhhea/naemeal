@@ -27,11 +27,8 @@ class CookProgramTest {
         .image("image")
         .build();
 
-    // when
-    cookProgram.checkEndTime();
-
-    // then
-    assertDoesNotThrow(() -> {});
+    //when, then
+    assertDoesNotThrow(cookProgram::checkEndTime);
   }
 
 
