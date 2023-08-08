@@ -38,7 +38,10 @@ public class CookProgramServiceImpl implements CookProgramService{
     @Transactional
     public CookProgramResponseDto updatePost(CookProgramRequestDto requestDto,
         Long postId, String userId, String imgPath) {
-        CookProgram post = cookProgramRepository.findById(postId).orElseThrow(
+        System.out.println("updatePost!!!!!!!!!!!!!");
+        System.out.println(requestDto.getTitle());
+        System.out.println(postId+"###########");
+        CookProgram post = cookProgramRepository.findById(postId).orElseThrow( //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~여기서 부터 고쳐야함
             () -> new IllegalArgumentException("해당 요리프로그램글이 존재하지 않습니다."));
         if (!post.getUserId().equals(userId)) {
             throw new IllegalArgumentException("요리프로그램글의 작성자가 일치하지 않습니다.");

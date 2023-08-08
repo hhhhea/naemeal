@@ -49,7 +49,7 @@ public class CookProgramController {
     }
 
     //게시글 수정
-    @Secured(UserRoleEnum.Authority.USER)
+    @Secured({UserRoleEnum.Authority.USER, UserRoleEnum.Authority.ADMIN})
     @PatchMapping("/{postId}")
     public ResponseEntity<ApiResponse> updatePost(
         @RequestPart("requestDto") CookProgramRequestDto requestDto,
