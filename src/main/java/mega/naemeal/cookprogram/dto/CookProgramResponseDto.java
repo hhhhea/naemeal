@@ -29,6 +29,9 @@ public class CookProgramResponseDto {
         this.area = post.getArea();
         this.locationName = post.getLocationName();
         this.deadline = post.getDeadline();
+        this.maxEnrollmentNum = post.getMaxEnrollmentNum();
+        this.image = post.getImage();
+        this.postStatus = post.getPostStatus();
 
     }
 }
