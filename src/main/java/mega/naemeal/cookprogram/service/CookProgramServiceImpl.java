@@ -41,11 +41,17 @@ public class CookProgramServiceImpl implements CookProgramService{
         System.out.println("updatePost!!!!!!!!!!!!!");
         System.out.println(requestDto.getTitle());
         System.out.println(postId+"###########");
-        CookProgram post = cookProgramRepository.findById(postId).orElseThrow( //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~여기서 부터 고쳐야함
-            () -> new IllegalArgumentException("해당 요리프로그램글이 존재하지 않습니다."));
+        CookProgram post = cookProgramRepository.findByPostId(postId).orElseThrow(
+                () -> new IllegalArgumentException("모집글이 존재하지 않습니다.")
+        );
+        System.out.println(post.getPostId());
+        System.out.println(post.getTitle());
+
         if (!post.getUserId().equals(userId)) {
+            System.out.println("!post.getUserId().equals(userId)");
             throw new IllegalArgumentException("요리프로그램글의 작성자가 일치하지 않습니다.");
         } else {
+            System.out.println("post.getUserId().equals(userId)");
             post.update(requestDto, imgPath);
         }
         return new CookProgramResponseDto(post);
@@ -91,7 +97,7 @@ public class CookProgramServiceImpl implements CookProgramService{
     @Transactional(readOnly = true)
     public CookProgramResponseDto getPost(Long postId) {
         CookProgram post = cookProgramRepository.findByPostId(postId).orElseThrow(
-            () -> new IllegalArgumentException("찾으시는 요리프로그램글이 없습니다.")
+                () -> new IllegalArgumentException("모집글이 존재하지 않습니다.")
         );
         CookProgramResponseDto responseDto = new CookProgramResponseDto(post);
 
