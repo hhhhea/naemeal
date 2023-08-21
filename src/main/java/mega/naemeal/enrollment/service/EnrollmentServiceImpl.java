@@ -37,7 +37,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     CookProgram post = cookProgramRepository.findByPostId(postId).orElseThrow(
-        () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+            () -> new IllegalArgumentException("모집글이 존재하지 않습니다.")
+    );
 
     //모집기간
     if (post.getDeadline().isBefore(LocalDateTime.now())) {

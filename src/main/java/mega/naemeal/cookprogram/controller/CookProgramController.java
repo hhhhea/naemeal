@@ -31,7 +31,7 @@ public class CookProgramController {
     private static String imgPath = "recipe/recipe-basic.jpg";
 
     //게시글 작성
-    @Secured(UserRoleEnum.Authority.USER)
+    @Secured({UserRoleEnum.Authority.USER, UserRoleEnum.Authority.ADMIN})
     @PostMapping
     public ResponseEntity<ApiResponse> createPost(
         @RequestPart("requestDto") CookProgramRequestDto requestDto,
@@ -56,11 +56,13 @@ public class CookProgramController {
         @RequestPart(value = "file", required = false) MultipartFile file,
         @PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        System.out.println("before!!!!!!!!!!!");
         if(file == null){
             imgPath = cookProgramService.getPostImage(userDetails.getUserId(), postId);
         }else {
             imgPath = s3Service.updateImage(file, dirName);
         }
+        System.out.println("before!!!!!!!!!!!");
         CookProgramResponseDto data = cookProgramService.updatePost(requestDto, postId,
             userDetails.getUserId(), imgPath);
         ApiResponse responseDto = new ApiResponse("요리프로그램글이 수정되었습니다.", data);

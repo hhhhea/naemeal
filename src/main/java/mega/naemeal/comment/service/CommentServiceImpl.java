@@ -33,8 +33,8 @@ public class CommentServiceImpl implements CommentService {
     CookProgram cookProgram = cookProgramRepository.findById(postId).orElseThrow(
         () -> new IllegalArgumentException("해당 게시글이 없습니다.")
     );
-    Comment comment = new Comment(requestDto.getComments(), userDetails.getUserId(),
-        userDetails.getMember().getNickname(), postId);
+    Comment comment = new Comment(requestDto.getComments(), userDetails.getMember().getNickname(),
+            userDetails.getUserId(), postId);
     commentRepository.save(comment);
     return new CommentResponseDto(comment);
   }
