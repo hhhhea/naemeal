@@ -1,22 +1,34 @@
 # 🧑‍🌾프로젝트 <내밀>
-
+#### 메가스터디IT 백엔드 메가케어+ 6기(2023.03.13 - 2023.08.16) 개인프로젝트입니다.
 "내 레시피 공유 및 요리 클래스 모집 플랫폼"<br>
+![image](https://github.com/euijooning/project_naemeal/assets/49093239/f9b27cb7-e33f-45a1-8680-ace0179fc754)
 
-<div style="text-align: center">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fw5sG2%2Fbtsl3iTcfHG%2FiFPpBCbX7K0pIHYl6dWnD1%2Fimg.png" style="width: 500px;">
-</div>
-
-### ⚡ [프로젝트 노션 페이지](https://luxurious-crepe-3fd.notion.site/a8404cbdb31b4f3eae2020eb0383b326?pvs=4 "노션 페이지") <br>
 
 ----
+## 👤팀원 구성
+- 정의준
+- 정해창
+  
+----
 
-## 🎁<내밀>의 의미
+## 🎁 <내밀>의 의미
 🌈 내 레시피를 남에게 흔쾌히 **내밀**다. <br>
 🌈 나의 식사 (=> my meal [**내밀**]) <br>
 🌈 맛있는 한 끼를 만들기 위한 나만의 **내밀**한 비법<br>
 
+----
+## 🎁 주요 기능
+👌회원가입<br>
+👌로그인<br>
+👌프로필 수정<br>
+👌공지사항<br>
+👌레시피 글 등록 및 댓글<br>
+👌프로그램 모집 등록<br>
+👌프로그램 참여 신청<br>
+👌프로그램 참여 여부 조회
 
 ----
-## 👤 팀원 구성
-- 정의준
-- 정해창
+## 🎁 개발 환경 
+
+![image](https://github.com/euijooning/project_naemeal/assets/49093239/079eb0db-a70d-4c6c-a570-c9f2e76a298f)
+
