@@ -98,6 +98,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
             authorizeHttpRequests
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/users/signup").permitAll()
+                .requestMatchers("/").permitAll()
                 .requestMatchers("/users/signin").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/cookProgram/**").permitAll()

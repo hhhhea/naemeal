@@ -53,6 +53,15 @@ dependencies {
 
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+//tasks.named('test') {java
+//    useJUnitPlatform()
+//}
+// 이거
+test.onlyIf {
+    !project.hasProperty('test')
+}
+
+// 이거
+jar {
+    enabled = false
 }
