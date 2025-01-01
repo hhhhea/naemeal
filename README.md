@@ -80,5 +80,12 @@
 
 <br>
 
+---
+
+## 📹 화면 보기
+🖥️ https://naemeal.netlify.app/
+
+<br>
+
 ## 🎁 프로젝트 내밀 프론트 파일 확인하기
 - [프론트 리포지토리](https://github.com/euijooning/project_naemeal_front "Github")
