@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/profiles", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/api/profiles", produces = "application/json;charset=UTF-8")
 public class ProfileController {
 
   private final ProfileService profileService;

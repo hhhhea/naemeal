@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/posts/{postId}/comments", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/api/posts/{postId}/comments", produces = "application/json;charset=UTF-8")
 public class CommentController {
 
   private final CommentServiceImpl commentService;

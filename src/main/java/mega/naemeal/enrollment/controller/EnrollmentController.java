@@ -27,7 +27,7 @@ public class EnrollmentController {
   private final EnrollmentServiceImpl enrollmentService;
 
 
-  @PostMapping("/posts/{postId}/enrollments")
+  @PostMapping("/api/posts/{postId}/enrollments")
   public ResponseEntity<ApiResponse> attend(@PathVariable Long postId,
       @Valid @RequestBody EnrollmentRequestDto requestDto,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -38,7 +38,7 @@ public class EnrollmentController {
   }
 
   //참여 취소
-  @DeleteMapping("/posts/{postId}/enrollments/{enrollmentId}")
+  @DeleteMapping("/api/posts/{postId}/enrollments/{enrollmentId}")
   public ResponseEntity<ApiResponse> cancel(@PathVariable Long postId,
       @AuthenticationPrincipal UserDetailsImpl userDetails,
       @PathVariable Long enrollmentId) {
@@ -48,7 +48,7 @@ public class EnrollmentController {
   }
 
   // 나의 클래스 목록 조회
-  @GetMapping("/enrollments/my")
+  @GetMapping("/api/enrollments/my")
   public ResponseEntity<ApiResponse> getAllMyEnrollment(
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     List<EnrollmentResponseDto> data = enrollmentService.getAllMyEnrollments(
@@ -58,7 +58,7 @@ public class EnrollmentController {
   }
 
   //특정 게시물에 대한 참여 신청 목록을 조회
-  @GetMapping("/posts/{postId}/enrollments")
+  @GetMapping("/api/posts/{postId}/enrollments")
   public ResponseEntity<ApiResponse> getEnrollmentList(@PathVariable Long postId) {
     List<EnrollmentResponseDto> data = enrollmentService.getEnrollmentList(postId);
     ApiResponse responseDto = new ApiResponse("참여신청에 대한 조회가 완료되었습니다.", data);

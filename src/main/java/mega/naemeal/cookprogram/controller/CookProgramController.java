@@ -10,6 +10,7 @@ import mega.naemeal.cookprogram.dto.CookProgramResponseDto;
 import mega.naemeal.cookprogram.service.CookProgramServiceImpl;
 import mega.naemeal.enums.UserRoleEnum;
 import mega.naemeal.security.UserDetailsImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/cookProgram")
+@RequestMapping("/api/cookProgram")
 public class CookProgramController {
 
     private final CookProgramServiceImpl cookProgramService;
@@ -31,7 +32,7 @@ public class CookProgramController {
     private static String imgPath = "recipe/recipe-basic.jpg";
 
     //게시글 작성
-    @Secured({UserRoleEnum.Authority.USER, UserRoleEnum.Authority.ADMIN})
+    @Secured(UserRoleEnum.Authority.USER)
     @PostMapping
     public ResponseEntity<ApiResponse> createPost(
         @RequestPart("requestDto") CookProgramRequestDto requestDto,
@@ -56,13 +57,11 @@ public class CookProgramController {
         @RequestPart(value = "file", required = false) MultipartFile file,
         @PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
-        System.out.println("before!!!!!!!!!!!");
         if(file == null){
             imgPath = cookProgramService.getPostImage(userDetails.getUserId(), postId);
         }else {
             imgPath = s3Service.updateImage(file, dirName);
         }
-        System.out.println("before!!!!!!!!!!!");
         CookProgramResponseDto data = cookProgramService.updatePost(requestDto, postId,
             userDetails.getUserId(), imgPath);
         ApiResponse responseDto = new ApiResponse("요리프로그램글이 수정되었습니다.", data);
