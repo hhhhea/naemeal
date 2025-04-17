@@ -35,16 +35,16 @@ jobs:
           source: "build/libs/naemeal-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/naemeal"
 
-      - name: Upload application.properties
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd /home/ubuntu/naemeal
-            rm -f src/main/resources/application.properties
-            echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
+#      - name: Upload application.properties
+#        uses: appleboy/ssh-action@v1.0.0
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ubuntu
+#          key: ${{ secrets.EC2_KEY }}
+#          script: |
+#            cd /home/ubuntu/naemeal
+#            rm -f src/main/resources/application.properties
+#            echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
 
       - name: SSH and restart server
         uses: appleboy/ssh-action@v1.0.0
