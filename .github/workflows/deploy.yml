@@ -53,9 +53,8 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            pkill -f 'naemeal' || true
-            bash -c "tmux new-session -d 'java -jar /home/ubuntu/naemeal/build/libs/*SNAPSHOT.jar > /home/ubuntu/naemeal/app.log 2>&1'"
-            sleep 5
+            cd /home/ubuntu/naemeal
+            ./start.sh
           
           
 
