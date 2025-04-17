@@ -19,6 +19,10 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
+      - name: Write application.properties
+        run: |
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
+
       - name: Build with Gradle
         run: ./gradlew clean build
 
@@ -50,4 +54,4 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             pkill -f 'naemeal' || true
-            nohup java -jar -Dspring.config.location=/home/ubuntu/naemeal/src/main/resources/application.properties /home/ubuntu/naemeal/build/libs/*SNAPSHOT.jar > /home/ubuntu/naemeal/app.log 2>&1 &
+            nohup java -jar /home/ubuntu/naemeal/build/libs/*SNAPSHOT.jar > /home/ubuntu/naemeal/app.log 2>&1 &
